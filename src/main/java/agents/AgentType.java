@@ -3,10 +3,9 @@ package agents;
 import javafx.scene.paint.Color;
 
 public enum AgentType {
-	HEALTHY(AgentColor.HEALTHY),
-	INFECTED(AgentColor.INFECTED),
-	MEDIC(AgentColor.MEDIC),
-	DEADLY(AgentColor.DEADLY);
+	YOUNG(AgentColor.YOUNG),
+	ELDERLY(AgentColor.ELDERLY),
+	DOCTOR(AgentColor.DOCTOR);
 	
 	public final Color color;
 

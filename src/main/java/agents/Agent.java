@@ -1,56 +1,54 @@
 package agents;
 
-import app.OpenSimplexNoise;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-
+import static app.Window.HEIGHT;
 import static app.Window.WIDTH;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import static app.Window.HEIGHT;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import utils.OpenSimplexNoise;
 
-public abstract class Agent extends Circle implements Agentable {
+public abstract class Agent extends Circle {
 	
-	private static int counter = 0;
+	private static int ID = 0;
 	private static final int MARGIN = 350;
-	private final OpenSimplexNoise osn;
+	private static final int RADIUS = 5;
 	
-	private boolean dead;
+	private final OpenSimplexNoise osn;
+	private AgentType type;
 	private double vx;
 	private double vy;
-	protected AgentType type;
+	private Color color;
+	private double x;
+	private double y;
+	private double angle;
+	private boolean dead = false;
 	
-	protected final int ID;
-	protected final Color color;
-	protected double x;
-	protected double y;
-	protected double angle;
-	protected boolean immune = false;
 	protected static final Random rnd = new Random();
-		
-	/* constructor for randomly placing agent */
+	protected boolean infected = false;
+	protected boolean deadlyInfected = false;
+	protected boolean immune = false;
+	
 	public Agent(AgentType type) {
-		this(rnd.nextInt(WIDTH-2*MARGIN) + MARGIN, rnd.nextInt(HEIGHT-2*MARGIN) + MARGIN, -1, 360, type);
+		this(rnd.nextInt(WIDTH-2*MARGIN) + MARGIN, rnd.nextInt(HEIGHT-2*MARGIN) + MARGIN, type);
 	}
-		
-	/* default constructor */
-	public Agent(double x, double y, int ID, double angle, AgentType type) {
+	
+	public Agent(double x, double y, AgentType type) {
 		this.x = x;
 		this.y = y;
-		this.ID = ID == -1 ? counter++ : ID;
-		this.osn = new OpenSimplexNoise(this.ID);
-		this.angle = angle == 360 ? rnd.nextInt(360) : angle;
-		this.color = type.color;
 		this.type = type;
-						
+		this.color = type.color;
+		this.osn = new OpenSimplexNoise(ID++);
+		this.angle = rnd.nextInt(360);
+		
 		setCenterX(x);
 		setCenterY(y);
-		setRadius(5);
+		setRadius(RADIUS);
 		setFill(color);
 	}
-			
+	
 	public void move(int speed) {
 		final double scale = 0.007;
 		angle = (angle + osn.eval(x*scale, y*scale)) % 360;
@@ -94,19 +92,32 @@ public abstract class Agent extends Circle implements Agentable {
 			}
 		}
 	}
-					
-	public abstract void interact(Agent bump, ArrayList<Agent> toAdd, ArrayList<Agent> toRemove);
-	
-	public void detectBump(ArrayList<Agent> agents, ArrayList<Agent> toRemove, ArrayList<Agent> toAdd) {
-		if(type == AgentType.DEADLY) return;
+
+	public void detectBump(ArrayList<Agent> agents) {
+		if(isDeadlyInfected()) return;
 		
 		for(Agent bump : agents) {
 			if(bump != this) {
 				if(Math.sqrt(Math.pow((x - bump.x), 2) + Math.pow(y - bump.y, 2)) <= getRadius()*2) {
-					interact(bump, toAdd, toRemove);
+					interact(bump);
+					break;
 				}
 			}
 		}
+	}
+		
+	protected abstract void interact(Agent bump);
+	
+	public abstract void setInfected(boolean value);
+	
+	public void setDeadlyInfected() {
+		deadlyInfected = true;
+		setColor(AgentColor.DEADLY);
+	}
+	
+	public void setColor(Color value) {
+		color = value;
+		setFill(color);
 	}
 	
 	public void setImmune(boolean value) {
@@ -117,26 +128,22 @@ public abstract class Agent extends Circle implements Agentable {
 		dead = true;
 	}
 	
+	public boolean isInfected() {
+		return infected;
+	}
+	
+	public boolean isDeadlyInfected() {
+		return deadlyInfected;
+	}
+	
 	public boolean isImmune() {
 		return immune;
 	}
-		
+	
 	public AgentType getType() {
 		return type;
 	}
-			
-	public double getX() {
-		return x;
-	}
-	
-	public double getY() {
-		return y;
-	}
-	
-	public double getAngle() {
-		return angle;
-	}
-	
+		
 	public boolean isDead() {
 		return dead;
 	}	

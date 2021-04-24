@@ -6,11 +6,11 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import utils.Utils;
 
 import java.util.ArrayList;
 
 import agents.Agent;
-import agents.AgentType;
 
 public class Window extends Application {
 	
@@ -41,7 +41,7 @@ public class Window extends Application {
 			root.setStyle("-fx-background-color: #2F2F2F");
 			root.setPrefSize(WIDTH, HEIGHT);
 			
-		final ArrayList<Agent> agents = Utils.createAgents(240, 10, 2, 1);
+		final ArrayList<Agent> agents = Utils.createAgents(100, 100, 5, 2);
 		root.getChildren().addAll(agents);
 		
 		System.out.println();		
@@ -49,30 +49,22 @@ public class Window extends Application {
 			private long lastUpdate = 0;
 
 			@Override
-			public void handle(long now) {
-				final ArrayList<Agent> toRemove = new ArrayList<>();
-				final ArrayList<Agent> toAdd = new ArrayList<>();
-				
+			public void handle(long now) {				
 				recovered = 0;
 				infected = 0;
 				
 				if(now - lastUpdate >= 30_000_000) {
 					for(Agent agent : agents) {
 						agent.move(320);
-						agent.detectBump(agents, toRemove, toAdd);
+						agent.detectBump(agents);
 						
-						if(agent.getType() == AgentType.HEALTHY && agent.isImmune()) recovered++;
-						if(agent.getType() == AgentType.INFECTED) infected++;
+						if(agent.isInfected()) infected++;
+						if(agent.isImmune()) recovered++;
 						if(agent.isDead()) dead++;
 					}
 					
 					System.out.printf("Infected: [%d/%d]     Dead: [%d/%d]     Recovered: [%d/%d]     \r",
 							infected, agents.size(), dead, agents.size(), recovered, agents.size());
-					
-					root.getChildren().removeAll(toRemove);
-					root.getChildren().addAll(toAdd);
-					agents.removeAll(toRemove);
-					agents.addAll(toAdd);
 					
 					lastUpdate = now;
 				}				
