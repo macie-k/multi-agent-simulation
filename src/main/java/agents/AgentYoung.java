@@ -3,13 +3,14 @@ package agents;
 import app.Window;
 
 public class AgentYoung extends Agent {
+	
 	public AgentYoung() {
 		super(AgentType.YOUNG);
 	}
 
 	@Override
 	public void interact(Agent bump) {
-		if(!immune && Window.infectious) {
+		if(!immune && !infected && Window.infectious && lastInteraction != bump) {
 			boolean gotInfected = false;
 			
 			/* chance of being infected by "Infected" agent = 25% */
@@ -26,6 +27,7 @@ public class AgentYoung extends Agent {
 				setInfected(true);
 			}
 		}
+		throttleInteraction(bump);
 	}
 
 	@Override

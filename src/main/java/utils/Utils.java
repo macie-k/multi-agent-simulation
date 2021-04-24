@@ -1,39 +1,30 @@
 package utils;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import agents.Agent;
 import agents.AgentDoctor;
 import agents.AgentElderly;
-import agents.AgentType;
 import agents.AgentYoung;
 
 public class Utils {
 		
 	/** function for creating agents */
-	public static ArrayList<Agent> createAgents(int young, int elderly, int doctors, int infected) {
-		ArrayList<Agent> agents = new ArrayList<>();
-		Random r = new Random();
-		
-		Log.success("Creating " + young + " young agents");
-		Log.success("Creating " + elderly + " elderly agents");
-		Log.success("Creating " + doctors + " doctor agents");
-		Log.success("Creating " + infected + " infected agents");
+	public static ArrayList<Agent> createAgents(int y, int e, int d, int i) {
+		ArrayList<Agent> agents = new ArrayList<>();		
+		Log.success("Creating " + y + " young agents");
+		Log.success("Creating " + e + " elderly agents");
+		Log.success("Creating " + d + " doctor agents");
+		Log.success("Creating " + i + " infected agents");
 
-		for(int i=0; i<young; i++) agents.add(new AgentYoung());
-		for(int i=0; i<elderly; i++) agents.add(new AgentElderly());
-		for(int i=0; i<doctors; i++) agents.add(new AgentDoctor());
-		
-		int i=0;
-		while(i < infected) {
-			Agent a = agents.get(r.nextInt(agents.size()));
-			if(!a.isInfected() && a.getType() != AgentType.DOCTOR) {
+		for(int j=0; j<y; j++) agents.add(new AgentYoung());
+		for(int j=0; j<e; j++) agents.add(new AgentElderly());
+		for(int j=0; j<d; j++) agents.add(new AgentDoctor());
+		for(int j=0; j<i; j++) {
+			Agent a = new AgentYoung();
 				a.setInfected(true);
-				i++;
-			}
+			agents.add(a);
 		}
-
 		return agents;
 	}
 	

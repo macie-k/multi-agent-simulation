@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import utils.Log;
 import utils.Utils;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Window extends Application {
 	public static Stage window;				// main stage
 	public static final int WIDTH = 1150;	// window width
 	public static final int HEIGHT = 720;	// window height
+	public static int speed = 300;
 	
 	private static int delay = 0;
 	private static int recovered = 0;
@@ -41,10 +43,10 @@ public class Window extends Application {
 			root.setStyle("-fx-background-color: #2F2F2F");
 			root.setPrefSize(WIDTH, HEIGHT);
 			
-		final ArrayList<Agent> agents = Utils.createAgents(100, 100, 5, 2);
+//		final ArrayList<Agent> agents = Utils.createAgents(150, 120, 5, 2);
+		final ArrayList<Agent> agents = Utils.createAgents(5, 0, 0, 2);
 		root.getChildren().addAll(agents);
-		
-		System.out.println();		
+			
 		AnimationTimer timer = new AnimationTimer() {
 			private long lastUpdate = 0;
 
@@ -55,7 +57,7 @@ public class Window extends Application {
 				
 				if(now - lastUpdate >= 30_000_000) {
 					for(Agent agent : agents) {
-						agent.move(320);
+						agent.move();
 						agent.detectBump(agents);
 						
 						if(agent.isInfected()) infected++;
@@ -63,9 +65,11 @@ public class Window extends Application {
 						if(agent.isDead()) dead++;
 					}
 					
-					System.out.printf("Infected: [%d/%d]     Dead: [%d/%d]     Recovered: [%d/%d]     \r",
-							infected, agents.size(), dead, agents.size(), recovered, agents.size());
-					
+					if(infectious) {
+						System.out.printf("Infected: [%d/%d]     Dead: [%d/%d]     Recovered: [%d/%d]     \r",
+								infected, agents.size(), dead, agents.size(), recovered, agents.size());
+					}
+										
 					lastUpdate = now;
 				}				
 			}
@@ -77,8 +81,11 @@ public class Window extends Application {
 			@Override
 			public void handle(long now) {
 				if(now - lastUpdate >= 1_000_000_000) {
-					if(delay++ > 2) {
+					if(delay++ > 0) {
 						infectious = true;
+						Log.success("Virus is now infectious");
+						System.out.println();
+						
 						delayTimer.stop();
 					}
 					lastUpdate = now;

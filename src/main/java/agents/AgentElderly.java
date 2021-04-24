@@ -10,7 +10,7 @@ public class AgentElderly extends Agent {
 
 	@Override
 	public void interact(Agent bump) {
-		if(!immune && Window.infectious) {
+		if(!immune && !infected && Window.infectious && lastInteraction != bump) {
 			boolean gotInfected = false;
 			
 			/* chance of being infected by "Infected" agent = 50% */
@@ -27,6 +27,7 @@ public class AgentElderly extends Agent {
 				setInfected(true);
 			}
 		}
+		throttleInteraction(bump);
 	}
 	
 	@Override

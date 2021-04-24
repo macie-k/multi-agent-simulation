@@ -31,7 +31,7 @@ public class Log {
 		System.out.println(getTime() + (IDE ? " [!] " : WARNING) + w);
 	}
 		
-	/* returns the Class and Method that threw the error */
+	/* returns the class and method that threw the error */
 	private static String getCallerLog(String log) {	   
 		String[] callerClassSplit = Thread.currentThread().getStackTrace()[3].getClassName().split("\\.");
 		String callerClass = callerClassSplit[callerClassSplit.length-1];
