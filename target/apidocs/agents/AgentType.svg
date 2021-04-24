@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="155px" preserveAspectRatio="none" style="width:202px;height:155px;" version="1.1" viewBox="0 0 202 155" width="202px" zoomAndPan="magnify"><defs><filter height="300%" id="f1e2co9l08i31n" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[5e6c9629ef2da464aa0e45b236db2e6e]
+class agents.AgentType--><a href="AgentType.html" target="_top" title="AgentType.html" xlink:actuate="onRequest" xlink:href="AgentType.html" xlink:show="new" xlink:title="AgentType.html" xlink:type="simple"><rect codeLine="5" fill="#FEFECE" filter="url(#f1e2co9l08i31n)" height="117.3672" id="agents.AgentType" style="stroke: #A80036; stroke-width: 1.5;" width="101" x="44.5" y="7"/><ellipse cx="59.5" cy="27.0938" fill="#EB937F" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M58.3594,27.8906 L58.3594,30.3906 L62.6875,30.3906 L62.6875,29.4688 Q62.6875,28.8594 62.9219,28.5938 Q63.1719,28.3281 63.5469,28.3281 Q63.9219,28.3281 64.1563,28.5938 Q64.3906,28.8594 64.3906,29.4688 L64.3906,32.0938 L56.3906,32.0938 Q55.7656,32.0938 55.5,31.8594 Q55.25,31.625 55.25,31.2344 Q55.25,30.8594 55.5156,30.625 Q55.7813,30.3906 56.3906,30.3906 L56.6563,30.3906 L56.6563,23.7344 L56.3906,23.7344 Q55.7656,23.7344 55.5,23.5 Q55.25,23.2656 55.25,22.875 Q55.25,22.5 55.5,22.2656 Q55.7656,22.0313 56.3906,22.0313 L64.0156,22.0313 L64.0156,24.625 Q64.0156,25.2344 63.7813,25.5 Q63.5625,25.75 63.1719,25.75 Q62.7969,25.75 62.5625,25.5 Q62.3281,25.2344 62.3281,24.625 L62.3281,23.7344 L58.3594,23.7344 L58.3594,26.1875 L59.8438,26.1875 Q59.8438,25.5313 59.9688,25.3438 Q60.2344,24.9375 60.7031,24.9375 Q61.0781,24.9375 61.3125,25.2031 Q61.5469,25.4531 61.5469,26.0625 L61.5469,28.0313 Q61.5469,28.5781 61.4219,28.7656 Q61.1563,29.1563 60.7031,29.1563 Q60.2344,29.1563 59.9688,28.75 Q59.8438,28.5625 59.8438,27.8906 L58.3594,27.8906 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="69" x="73.5" y="26.5332">AgentType</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="31" x="92.5" y="39.9902">agents</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="45.5" x2="144.5" y1="47.1875" y2="47.1875"/><ellipse cx="55.5" cy="58.1875" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="48" x="64.5" y="62.6064">HEALTHY</text><ellipse cx="55.5" cy="72.0234" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="47" x="64.5" y="76.4424">INFECTED</text><ellipse cx="55.5" cy="85.8594" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="30" x="64.5" y="90.2783">MEDIC</text><ellipse cx="55.5" cy="99.6953" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="42" x="64.5" y="104.1143">DEADLY</text><ellipse cx="55.5" cy="113.5313" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="55" x="64.5" y="117.9502">color: Color</text></a><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="190" x="0" y="141.748">UMLDoclet 2.0.12, PlantUML 1.2020.16</text><!--MD5=[b04b468b98c8f0a2a131926af5bfbbf7]
+@startuml
+    set namespaceSeparator none
+    hide empty fields
+    hide empty methods
+
+    enum "<size:14>AgentType\n<size:10>agents" as agents.AgentType [[AgentType.html]] {
+        {static} +HEALTHY
+        {static} +INFECTED
+        {static} +MEDIC
+        {static} +DEADLY
+        +color: Color
+    }
+
+    center footer UMLDoclet 2.0.12, PlantUML 1.2020.16
+@enduml
+
+PlantUML version 1.2020.16(Sun Aug 23 22:20:43 CEST 2020)
+(APACHE source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1250
+Language: en
+Country: US
+--></g></svg>

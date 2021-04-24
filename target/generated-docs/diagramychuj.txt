@@ -1,0 +1,148 @@
+@startuml
+
+abstract class agents.Agent {
+	{field} #ID : int
+	{field} {static} -MARGIN : int
+	{field} #angle : double
+	{field} #color : javafx.scene.paint.Color
+	{field} {static} -counter : int
+	{field} -dead : boolean
+	{field} +immune : boolean
+	{field} {static} #rnd : java.util.Random
+	{field} -vx : double
+	{field} -vy : double
+	{field} #x : double
+	{field} #y : double
+	{method} +detectBump ( paramArrayList1 : java.util.ArrayList , paramArrayList2 : java.util.ArrayList , paramArrayList3 : java.util.ArrayList ) : void
+	{method}  {abstract} +interact ( paramAgent1 : agents.Agent , paramArrayList2 : java.util.ArrayList , paramArrayList3 : java.util.ArrayList ) : void
+	{method} +kill () : void
+	{method} +move ( paramint1 : int ) : void
+}
+
+
+interface agents.AgentColor {
+	{field} {static} +DEADLY : javafx.scene.paint.Color
+	{field} {static} +HEALTHY : javafx.scene.paint.Color
+	{field} {static} +INFECTED : javafx.scene.paint.Color
+	{field} {static} +MEDIC : javafx.scene.paint.Color
+}
+
+
+class agents.AgentDeadly {
+	{method} +interact ( paramAgent1 : agents.Agent , paramArrayList2 : java.util.ArrayList , paramArrayList3 : java.util.ArrayList ) : void
+}
+
+
+class agents.AgentHealthy {
+	{method} +detectBump () : void
+	{method} +interact () : void
+	{method} +interact ( paramAgent1 : agents.Agent , paramArrayList2 : java.util.ArrayList , paramArrayList3 : java.util.ArrayList ) : void
+	{method} +move () : void
+}
+
+
+class agents.AgentInfected {
+	{field} {static} +amount : int
+	{method} +detectBump () : void
+	{method} +interact () : void
+	{method} +interact ( paramAgent1 : agents.Agent , paramArrayList2 : java.util.ArrayList , paramArrayList3 : java.util.ArrayList ) : void
+	{method} +move () : void
+}
+
+
+class agents.AgentMedic {
+	{method} +interact ( paramAgent1 : agents.Agent , paramArrayList2 : java.util.ArrayList , paramArrayList3 : java.util.ArrayList ) : void
+}
+
+
+enum agents.AgentType {
+	{field} +DEADLY
+	{field} +HEALTHY
+	{field} +INFECTED
+	{field} +MEDIC
+}
+
+
+interface agents.Agentable {
+	{method}  {abstract} +detectBump () : void
+	{method}  {abstract} +getAngle () : double
+	{method}  {abstract} +getType () : agents.AgentType
+	{method}  {abstract} +getX () : double
+	{method}  {abstract} +getY () : double
+	{method}  {abstract} +interact () : void
+	{method}  {abstract} +isDead () : boolean
+	{method}  {abstract} +isImmune () : boolean
+	{method}  {abstract} +kill () : void
+	{method}  {abstract} +move () : void
+}
+
+
+class app.Log {
+	{field} {static} -ERROR : String
+	{field} {static} +IDE : boolean
+	{field} {static} -SUCCESS : String
+	{field} {static} -WARNING : String
+	{method}  {static} +error ( paramString1 : String ) : void
+	{method}  {static} +error ( paramString1 : String , paramboolean2 : boolean ) : void
+	{method}  {static} -getCallerLog ( paramString1 : String ) : String
+	{method}  {static} -getTime () : String
+	{method}  {static} +success ( paramString1 : String ) : void
+	{method}  {static} +warning ( paramString1 : String ) : void
+}
+
+
+class app.OpenSimplexNoise {
+	{field} {static} -DEFAULT_SEED : long
+	{field} {static} -GRADIENTS_2D : [Lapp.OpenSimplexNoise$Grad2;
+	{field} {static} -N2 : double
+	{field} {static} -PMASK : int
+	{field} {static} -PSIZE : int
+	{field} {static} -SQUISH_CONSTANT_2D : double
+	{field} {static} -STRETCH_CONSTANT_2D : double
+	{field} -perm : [S
+	{field} -permGrad2 : [Lapp.OpenSimplexNoise$Grad2;
+	{method} +eval ( paramdouble1 : double , paramdouble2 : double ) : double
+	{method} -extrapolate ( paramint1 : int , paramint2 : int , paramdouble3 : double , paramdouble4 : double ) : double
+	{method}  {static} -fastFloor ( paramdouble1 : double ) : int
+}
+
+
+class app.OpenSimplexNoise$Grad2 {
+	{field} ~dx : double
+	{field} ~dy : double
+}
+
+
+class app.Utils {
+	{method}  {static} +createAgents ( paramint1 : int , paramint2 : int , paramint3 : int , paramint4 : int ) : java.util.ArrayList
+	{method}  {static} +parseArguments ( paramString;1 : [Ljava.lang.String; ) : void
+}
+
+
+class app.Window {
+	{field} {static} +HEIGHT : int
+	{field} {static} +WIDTH : int
+	{field} {static} -dead : int
+	{field} {static} -delay : int
+	{field} {static} -delayTimer : javafx.animation.AnimationTimer
+	{field} {static} -infected : int
+	{field} {static} +infectious : boolean
+	{field} {static} -recovered : int
+	{field} {static} +window : javafx.stage.Stage
+	{method}  {static} +main ( paramString;1 : [Ljava.lang.String; ) : void
+	{method} +start ( paramStage1 : javafx.stage.Stage ) : void
+}
+
+
+
+
+agents.Agent -->  agents.AgentType : type
+agents.Agent -->  app.OpenSimplexNoise : osn
+agents.Agent ..|>  agents.Agentable
+agents.AgentDeadly --|>  agents.AgentInfected
+agents.AgentHealthy --|>  agents.Agent
+agents.AgentInfected --|>  agents.Agent
+agents.AgentMedic --|>  agents.AgentHealthy
+
+
+@enduml
