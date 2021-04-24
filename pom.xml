@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>po</groupId>
   <artifactId>Symulacja</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.2.0-alpha</version>
   <dependencies>
     <dependency>
       <groupId>org.openjfx</groupId>
@@ -52,7 +52,7 @@
 	        </archive>
 	      </configuration>
 	    </plugin>
-	    <!--
+	    <!-- 
           <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
@@ -76,7 +76,7 @@
 	        </archive>
         </configuration>
       </plugin>
-      -->
+      -->      
       <plugin>
 		  <artifactId>plantuml-generator-maven-plugin</artifactId>
 		  <groupId>de.elnarion.maven</groupId>
@@ -164,7 +164,7 @@
 	  </pluginManagement>
 	</build>
 	<properties>
-	    <maven.compiler.source>16</maven.compiler.source>
-	    <maven.compiler.target>16</maven.compiler.target>
+	    <maven.compiler.source>1.8</maven.compiler.source>
+	    <maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 </project>

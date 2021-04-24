@@ -18,6 +18,9 @@ abstract class agents.Agent {
 	{field} -vy : double
 	{field} -x : double
 	{field} -y : double
+	{method}  {static} ~access$0 ( paramAgent1 : agents.Agent ) : int
+	{method}  {static} ~access$1 ( paramAgent1 : agents.Agent , paramint2 : int ) : void
+	{method}  {static} ~access$2 ( paramAgent1 : agents.Agent ) : javafx.animation.AnimationTimer
 	{method} +detectBump ( paramArrayList1 : java.util.ArrayList ) : void
 	{method}  {abstract} +interact ( paramAgent1 : agents.Agent ) : void
 	{method} +kill () : void
@@ -90,6 +93,15 @@ class app.Window {
 	{field} {static} -recovered : int
 	{field} {static} +speed : int
 	{field} {static} +window : javafx.stage.Stage
+	{method}  {static} ~access$0 ( paramint1 : int ) : void
+	{method}  {static} ~access$1 ( paramint1 : int ) : void
+	{method}  {static} ~access$2 () : int
+	{method}  {static} ~access$3 () : int
+	{method}  {static} ~access$4 () : int
+	{method}  {static} ~access$5 ( paramint1 : int ) : void
+	{method}  {static} ~access$6 () : int
+	{method}  {static} ~access$7 ( paramint1 : int ) : void
+	{method}  {static} ~access$8 () : javafx.animation.AnimationTimer
 	{method}  {static} +main ( paramString;1 : [Ljava.lang.String; ) : void
 	{method} +start ( paramStage1 : javafx.stage.Stage ) : void
 }
