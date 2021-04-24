@@ -16,7 +16,7 @@ public abstract class Agent extends Circle implements Agentable {
 	
 	private static int ID = 0;							// custom noise seed for every agent
 	private static final int MARGIN = 10;				// spawning margin
-	private static final int RADIUS = 5;				// agent's shape radius
+	private static final int RADIUS = 3;				// agent's shape radius
 	protected static final Random rnd = new Random();
 	
 	private final OpenSimplexNoise osn;		// noise object
@@ -35,7 +35,37 @@ public abstract class Agent extends Circle implements Agentable {
 	protected boolean deadlyInfected = false;	// information if agent is deadly infected
 	protected boolean immune = false;			// information if agent is immune
 	protected Agent lastInteraction = null;
-	
+		
+	protected AnimationTimer deadlyInfectedTimer = new AnimationTimer() {
+		private long lastUpdate = 0;
+		private int deadlyInfectedSeconds = 0;
+		
+		@Override
+		public void handle(long now) {
+			if(now - lastUpdate >= 1_000_000_000) {
+				if(deadlyInfectedSeconds++ > getTimeToDeadlyInfected()) {
+					setDeadlyInfected();
+					deadlyInfectedTimer.stop();
+				}
+				lastUpdate = now;
+			}
+		}
+	};
+	protected AnimationTimer deathTimer = new AnimationTimer() {
+		private long lastUpdate = 0;
+		private int dyingSeconds = 0;
+		
+		@Override
+		public void handle(long now) {
+			if(now - lastUpdate >= 1_000_000_000) {
+				if(dyingSeconds++ > getTimeToDie()) {
+					kill();
+					deathTimer.stop();
+				}
+				lastUpdate = now;
+			}
+		}
+	};
 	
 	/* constructor for randomly placing an Agent withing the specified margin */
 	public Agent(AgentType type) {
@@ -49,7 +79,7 @@ public abstract class Agent extends Circle implements Agentable {
 		this.type = type;
 		this.osn = new OpenSimplexNoise(ID++);
 		this.angle = rnd.nextInt(360);
-		
+				
 		setCenterX(x);
 		setCenterY(y);
 		setRadius(RADIUS);
@@ -106,7 +136,7 @@ public abstract class Agent extends Circle implements Agentable {
 
 	/* method for detecting if the agent collided with anyone during the current frame */
 	public void detectBump(ArrayList<Agent> agents) {
-		if(isDeadlyInfected()) return;
+		if(isDeadlyInfected() || isDead()) return;
 		
 		for(Agent bump : agents) {
 			if(bump != this) {
@@ -120,7 +150,9 @@ public abstract class Agent extends Circle implements Agentable {
 		
 	public abstract void interact(Agent bump);
 	
-	public abstract void setInfected(boolean value);
+	public abstract int getTimeToDie();
+	
+	public abstract int getTimeToDeadlyInfected();
 	
 	/* method for throttling interactions */
 	public void throttleInteraction(Agent bump) {
@@ -143,9 +175,18 @@ public abstract class Agent extends Circle implements Agentable {
 		}; interactionTimer.start();
 	}
 	
+	public void setInfected(boolean value) {
+		infected = value;
+		setColor(infected ? AgentColor.INFECTED : type.color);
+		if(infected) {
+			deadlyInfectedTimer.start();
+		}
+	}
+	
 	public void setDeadlyInfected() {
 		deadlyInfected = true;
 		setColor(AgentColor.DEADLY);
+		deathTimer.start();
 	}
 	
 	public void setColor(Color value) {
@@ -157,6 +198,7 @@ public abstract class Agent extends Circle implements Agentable {
 	}
 	
 	public void kill() {
+		setFill(Color.TRANSPARENT);
 		dead = true;
 	}
 	

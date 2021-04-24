@@ -26,6 +26,7 @@ public class Window extends Application {
 	private static int infected = 0;
 	private static int dead = 0;
 	private static AnimationTimer delayTimer;
+	private static AnimationTimer mainTimer;
 	
 	public static void main(String[] args) {
 		Utils.parseArguments(args);
@@ -43,15 +44,17 @@ public class Window extends Application {
 			root.setStyle("-fx-background-color: #2F2F2F");
 			root.setPrefSize(WIDTH, HEIGHT);
 			
-		final ArrayList<Agent> agents = Utils.createAgents(150, 120, 5, 2);
+		final ArrayList<Agent> agents = Utils.createAgents(250, 250, 30, 2);
+		final int total = agents.size();
 //		final ArrayList<Agent> agents = Utils.createAgents(5, 0, 0, 2);
 		root.getChildren().addAll(agents);
 			
-		AnimationTimer timer = new AnimationTimer() {
+		mainTimer = new AnimationTimer() {
 			private long lastUpdate = 0;
 
 			@Override
-			public void handle(long now) {				
+			public void handle(long now) {	
+				ArrayList<Agent> toRemove = new ArrayList<>();
 				recovered = 0;
 				infected = 0;
 				
@@ -60,20 +63,30 @@ public class Window extends Application {
 						agent.move();
 						agent.detectBump(agents);
 						
-						if(agent.isInfected()) infected++;
+						if(agent.isInfected() && !agent.isDead()) infected++;
 						if(agent.isImmune()) recovered++;
-						if(agent.isDead()) dead++;
+						if(agent.isDead()) {
+							dead++;
+							toRemove.add(agent);
+						}
 					}
+					
+					agents.removeAll(toRemove);
+					root.getChildren().removeAll(toRemove);
 					
 					if(infectious) {
 						System.out.printf("Infected: [%d/%d]     Dead: [%d/%d]     Recovered: [%d/%d]     \r",
-								infected, agents.size(), dead, agents.size(), recovered, agents.size());
+								infected, total, dead, total, recovered, total);
+					}
+					
+					if(infected == 0) {
+						mainTimer.stop();
 					}
 										
 					lastUpdate = now;
 				}				
 			}
-		}; timer.start();		
+		}; mainTimer.start();		
 		
 		delayTimer = new AnimationTimer() {
 			private long lastUpdate = 0;

@@ -13,8 +13,8 @@ public class AgentElderly extends Agent {
 		if(!immune && !infected && Window.infectious && lastInteraction != bump) {
 			boolean gotInfected = false;
 			
-			/* chance of being infected by "Infected" agent = 50% */
-			if(bump.infected && rnd.nextDouble() > 0.5) {
+			/* chance of being infected by "Infected" agent = 45% */
+			if(bump.infected && rnd.nextDouble() > 0.55) {
 				gotInfected = true;
 			}
 			
@@ -29,10 +29,14 @@ public class AgentElderly extends Agent {
 		}
 		throttleInteraction(bump);
 	}
+		
+	@Override
+	public int getTimeToDeadlyInfected() {
+		return 15;
+	}
 	
 	@Override
-	public void setInfected(boolean value) {
-		infected = value;
-		setColor(infected ? AgentColor.INFECTED : AgentColor.ELDERLY);
+	public int getTimeToDie() {
+		return 10;
 	}
 }

@@ -3,7 +3,7 @@ package agents;
 import app.Window;
 
 public class AgentYoung extends Agent {
-	
+		
 	public AgentYoung() {
 		super(AgentType.YOUNG);
 	}
@@ -13,8 +13,8 @@ public class AgentYoung extends Agent {
 		if(!immune && !infected && Window.infectious && lastInteraction != bump) {
 			boolean gotInfected = false;
 			
-			/* chance of being infected by "Infected" agent = 25% */
-			if(bump.infected && rnd.nextDouble() > 0.75) {
+			/* chance of being infected by "Infected" agent = 30% */
+			if(bump.infected && rnd.nextDouble() > 0.7) {
 				gotInfected = true;
 			}
 			
@@ -29,10 +29,14 @@ public class AgentYoung extends Agent {
 		}
 		throttleInteraction(bump);
 	}
-
+	
 	@Override
-	public void setInfected(boolean value) {
-		infected = value;
-		setColor(infected ? AgentColor.INFECTED : AgentColor.YOUNG);
+	public int getTimeToDeadlyInfected() {
+		return 20;
+	}
+	
+	@Override
+	public int getTimeToDie() {
+		return 15;
 	}
 }
