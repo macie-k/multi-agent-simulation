@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>po</groupId>
   <artifactId>Symulacja</artifactId>
-  <version>0.2.0-alpha</version>
+  <version>0.2.1-alpha</version>
   <dependencies>
     <dependency>
       <groupId>org.openjfx</groupId>
@@ -52,7 +52,6 @@
 	        </archive>
 	      </configuration>
 	    </plugin>
-	    <!-- 
           <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
@@ -76,7 +75,6 @@
 	        </archive>
         </configuration>
       </plugin>
-      -->      
       <plugin>
 		  <artifactId>plantuml-generator-maven-plugin</artifactId>
 		  <groupId>de.elnarion.maven</groupId>
@@ -89,13 +87,16 @@
 				</goals>
 				<phase>generate-test-sources</phase>
 				<configuration>
-					<outputFilename>diagramychuj.txt</outputFilename>
+					<outputFilename>diagrams.txt</outputFilename>
 					<scanPackages>
 						<scanPackage>
 						app
 						</scanPackage>
 						<scanPackage>
 						agents
+						</scanPackage>
+						<scanPackage>
+						utils
 						</scanPackage>
 					</scanPackages>
 				</configuration>
