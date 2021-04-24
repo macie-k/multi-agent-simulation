@@ -52,6 +52,7 @@
 	        </archive>
 	      </configuration>
 	    </plugin>
+	    <!--
           <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
@@ -75,6 +76,7 @@
 	        </archive>
         </configuration>
       </plugin>
+      -->
       <plugin>
 		  <artifactId>plantuml-generator-maven-plugin</artifactId>
 		  <groupId>de.elnarion.maven</groupId>

@@ -43,8 +43,8 @@ public class Window extends Application {
 			root.setStyle("-fx-background-color: #2F2F2F");
 			root.setPrefSize(WIDTH, HEIGHT);
 			
-//		final ArrayList<Agent> agents = Utils.createAgents(150, 120, 5, 2);
-		final ArrayList<Agent> agents = Utils.createAgents(5, 0, 0, 2);
+		final ArrayList<Agent> agents = Utils.createAgents(150, 120, 5, 2);
+//		final ArrayList<Agent> agents = Utils.createAgents(5, 0, 0, 2);
 		root.getChildren().addAll(agents);
 			
 		AnimationTimer timer = new AnimationTimer() {
