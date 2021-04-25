@@ -28,7 +28,7 @@ public class Window extends Application {
 	private static AnimationTimer delayTimer;
 	private static AnimationTimer mainTimer;
 	
-	public static void main(String[] args) {
+	public static void launcher(String[] args) {
 		Utils.parseArguments(args);
 		launch(args);
 	}

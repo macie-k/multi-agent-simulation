@@ -34,7 +34,7 @@
 	        <artifactId>javafx-maven-plugin</artifactId>
 	        <version>0.0.6</version>
 	        <configuration>
-	            <mainClass>app.Window</mainClass>
+	            <mainClass>app.Launcher</mainClass>
 	        </configuration>
 	    </plugin>
 	    <plugin>
@@ -47,7 +47,7 @@
 	          <manifest>
 	            <addClasspath>true</addClasspath>
 	            <classpathPrefix>lib/</classpathPrefix>
-	            <mainClass>app.Window</mainClass>
+	            <mainClass>app.Launcher</mainClass>
 	          </manifest>
 	        </archive>
 	      </configuration>
@@ -70,7 +70,7 @@
 	          <manifest>
 	            <addClasspath>true</addClasspath>
 	            <classpathPrefix>lib/</classpathPrefix>
-	            <mainClass>app.Window</mainClass>
+	            <mainClass>app.Launcher</mainClass>
 	          </manifest>
 	        </archive>
         </configuration>

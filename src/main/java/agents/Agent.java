@@ -177,9 +177,11 @@ public abstract class Agent extends Circle implements Agentable {
 	
 	public void setInfected(boolean value) {
 		infected = value;
-		setColor(infected ? AgentColor.INFECTED : type.color);
 		if(infected) {
+			setColor(AgentColor.INFECTED);
 			deadlyInfectedTimer.start();
+		} else {
+			setColor(type.color);
 		}
 	}
 	

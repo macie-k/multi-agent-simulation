@@ -8,6 +8,8 @@ public interface Agentable {
 	public void move();
 	public void detectBump(ArrayList<Agent> agents);
 	public abstract void interact(Agent bump);
+	public abstract int getTimeToDie();
+	public abstract int getTimeToDeadlyInfected();
 	public void throttleInteraction(Agent bump);
 	public abstract void setInfected(boolean value);
 	public void setDeadlyInfected();
