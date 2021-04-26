@@ -21,13 +21,13 @@ public abstract class Agent extends Circle implements Agentable {
 	
 	private final OpenSimplexNoise osn;		// noise object
 	private final int speed = Window.speed;	// agent's speed // soon to be a program's parameter
-	private AgentType type;					// agent's type & color information 
 	private double vx;						// x direction & speed 'vector'
 	private double vy;						// y direction & speed 'vector'
 	private double x;						// current center x coordinate
 	private double y;						// current center y coordinate
 	private double angle;					// current direction angle
 	private boolean dead = false;			// flag to count dead agents
+	private Color color;
 	private AnimationTimer interactionTimer;
 	private int interactionDelay = 0;
 	
@@ -68,22 +68,22 @@ public abstract class Agent extends Circle implements Agentable {
 	};
 	
 	/* constructor for randomly placing an Agent withing the specified margin */
-	public Agent(AgentType type) {
-		this(rnd.nextInt(WIDTH-2*MARGIN) + MARGIN, rnd.nextInt(HEIGHT-2*MARGIN) + MARGIN, type);
+	public Agent(Color color) {
+		this(rnd.nextInt(WIDTH-2*MARGIN) + MARGIN, rnd.nextInt(HEIGHT-2*MARGIN) + MARGIN, color);
 	}
 	
 	/* main constructor */
-	public Agent(double x, double y, AgentType type) {
+	public Agent(double x, double y, Color color) {
 		this.x = x;
 		this.y = y;
-		this.type = type;
 		this.osn = new OpenSimplexNoise(ID++);
 		this.angle = rnd.nextInt(360);
-				
+		this.color = color;
+		
 		setCenterX(x);
 		setCenterY(y);
 		setRadius(RADIUS);
-		setFill(type.color);
+		setFill(color);
 	}
 	
 	/* method for moving an Agent */
@@ -140,7 +140,7 @@ public abstract class Agent extends Circle implements Agentable {
 		
 		for(Agent bump : agents) {
 			if(bump != this) {
-				if(Math.sqrt(Math.pow((x - bump.x), 2) + Math.pow(y - bump.y, 2)) <= getRadius()*2) {
+				if(Math.sqrt(Math.pow((x - bump.getX()), 2) + Math.pow(y - bump.getY(), 2)) <= getRadius()*2) {
 					interact(bump);
 					break;
 				}
@@ -149,11 +149,7 @@ public abstract class Agent extends Circle implements Agentable {
 	}
 		
 	public abstract void interact(Agent bump);
-	
-	public abstract int getTimeToDie();
-	
-	public abstract int getTimeToDeadlyInfected();
-	
+		
 	/* method for throttling interactions */
 	public void throttleInteraction(Agent bump) {
 		lastInteraction = bump;
@@ -181,13 +177,13 @@ public abstract class Agent extends Circle implements Agentable {
 			setColor(AgentColor.INFECTED);
 			deadlyInfectedTimer.start();
 		} else {
-			setColor(type.color);
+			setColor(color);
 		}
 	}
 	
 	public void setDeadlyInfected() {
 		deadlyInfected = true;
-		setColor(AgentColor.DEADLY);
+		setColor(AgentColor.DEADLY_INFECTED);
 		deathTimer.start();
 	}
 	
@@ -215,12 +211,24 @@ public abstract class Agent extends Circle implements Agentable {
 	public boolean isImmune() {
 		return immune;
 	}
-	
-	public AgentType getType() {
-		return type;
-	}
-		
+			
 	public boolean isDead() {
 		return dead;
 	}	
+	
+	public double getX() {
+		return getCenterX();
+	}
+	
+	public double getY() {
+		return getCenterY();
+	}
+	
+	public AnimationTimer getDeadlyInfectedTimer() {
+		return deadlyInfectedTimer;
+	}
+	
+	public abstract int getTimeToDie();
+	
+	public abstract int getTimeToDeadlyInfected();
 }

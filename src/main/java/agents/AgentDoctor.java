@@ -5,21 +5,21 @@ import app.Window;
 public class AgentDoctor extends Agent {
 
 	public AgentDoctor() {
-		super(AgentType.DOCTOR);
+		super(AgentColor.DOCTOR);
 	}
 
 	@Override
 	public void interact(Agent bump) {
-		if(bump.infected && !bump.deadlyInfected && !infected) {
+		if(bump.isInfected() && !bump.isDeadlyInfected() && !infected) {
 			bump.setInfected(false);
 			bump.setImmune(true);
-			bump.deadlyInfectedTimer.stop();
+			bump.getDeadlyInfectedTimer().stop();
 		}				
 		
 		if(!immune && !infected && lastInteraction != bump && Window.infectious) {
 			
 			/* chance of being infected by "Deadly Infected" agent = 20% */
-			if(bump.deadlyInfected && rnd.nextDouble() > 0.8) {
+			if(bump.isDeadlyInfected() && rnd.nextDouble() > 0.8) {
 				setInfected(true);
 			}
 		}

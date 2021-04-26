@@ -2,6 +2,7 @@ package agents;
 
 import java.util.ArrayList;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 
 public interface Agentable {
@@ -19,6 +20,8 @@ public interface Agentable {
 	public boolean isInfected();
 	public boolean isDeadlyInfected();
 	public boolean isImmune();
-	public AgentType getType();
 	public boolean isDead();
+	public double getX();
+	public double getY();
+	public AnimationTimer getDeadlyInfectedTimer();
 }

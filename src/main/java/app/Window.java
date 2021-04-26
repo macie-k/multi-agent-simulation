@@ -94,7 +94,7 @@ public class Window extends Application {
 			@Override
 			public void handle(long now) {
 				if(now - lastUpdate >= 1_000_000_000) {
-					if(delay++ > 0) {
+					if(delay++ > 2) {
 						infectious = true;
 						Log.success("Virus is now infectious");
 						System.out.println();

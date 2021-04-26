@@ -5,7 +5,7 @@ import app.Window;
 public class AgentYoung extends Agent {
 		
 	public AgentYoung() {
-		super(AgentType.YOUNG);
+		super(AgentColor.YOUNG);
 	}
 
 	@Override
@@ -14,12 +14,12 @@ public class AgentYoung extends Agent {
 			boolean gotInfected = false;
 			
 			/* chance of being infected by "Infected" agent = 30% */
-			if(bump.infected && rnd.nextDouble() > 0.7) {
+			if(bump.isInfected() && rnd.nextDouble() > 0.7) {
 				gotInfected = true;
 			}
 			
 			/* chance of being infected by "Deadly Infected" agent = 50% */
-			if(bump.deadlyInfected && rnd.nextDouble() > 0.5) {
+			if(bump.isDeadlyInfected() && rnd.nextDouble() > 0.5) {
 				gotInfected = true;
 			}
 			
