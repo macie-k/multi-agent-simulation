@@ -6,6 +6,14 @@ import agents.Agent;
 import agents.AgentDoctor;
 import agents.AgentElderly;
 import agents.AgentYoung;
+import javafx.animation.FadeTransition;
+import javafx.animation.FillTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
+import javafx.util.Duration;
 
 public class Utils {
 		
@@ -40,5 +48,30 @@ public class Utils {
 				}
 			}
 		}
+	}
+	
+	/* animates color change */
+	public static void fadeColors(Shape shape, int duration, Color from, Color to) {
+		FillTransition ft = new FillTransition(Duration.millis(duration), shape, from, to);
+			ft.play();
+	}
+	
+	public static void fadeIn(Node node, int duration, EventHandler<ActionEvent> callback) {
+		fade(node, duration, node.getOpacity(), 100, callback);
+	}
+	
+	public static void fadeOut(Node node, int duration, EventHandler<ActionEvent> callback) {
+		fade(node, duration, node.getOpacity(), 0, callback);
+	}
+	
+	/* fades given node */
+	public static void fade(Node node, int duration, double from, double to, EventHandler<ActionEvent> callback) {
+		FadeTransition ft = new FadeTransition(Duration.millis(duration), node);
+			ft.setFromValue(from);
+		    ft.setToValue(to);
+		    ft.play();
+		    if(callback != null) {
+		    	ft.setOnFinished(callback);
+		    }
 	}
 }

@@ -13,13 +13,15 @@ import java.util.ArrayList;
 
 import agents.Agent;
 
+import static utils.Utils.fadeOut;
+
 public class Window extends Application {
 	
 	public static boolean infectious = false;
 	public static Stage window;				// main stage
 	public static final int WIDTH = 1150;	// window width
 	public static final int HEIGHT = 720;	// window height
-	public static int speed = 300;
+	public static int speed = 250;
 	
 	private static int delay = 0;
 	private static int recovered = 0;
@@ -44,9 +46,9 @@ public class Window extends Application {
 			root.setStyle("-fx-background-color: #2F2F2F");
 			root.setPrefSize(WIDTH, HEIGHT);
 			
-		final ArrayList<Agent> agents = Utils.createAgents(250, 250, 30, 2);
+		final ArrayList<Agent> agents = Utils.createAgents(200, 200, 30, 2);
+//		final ArrayList<Agent> agents = Utils.createAgents(2, 0, 3, 3);
 		final int total = agents.size();
-//		final ArrayList<Agent> agents = Utils.createAgents(5, 0, 0, 2);
 		root.getChildren().addAll(agents);
 			
 		mainTimer = new AnimationTimer() {
@@ -54,7 +56,6 @@ public class Window extends Application {
 
 			@Override
 			public void handle(long now) {	
-				ArrayList<Agent> toRemove = new ArrayList<>();
 				recovered = 0;
 				infected = 0;
 				
@@ -65,14 +66,15 @@ public class Window extends Application {
 						
 						if(agent.isInfected() && !agent.isDead()) infected++;
 						if(agent.isImmune()) recovered++;
-						if(agent.isDead()) {
+						if(agent.isDead() && !agent.isFading()) {
 							dead++;
-							toRemove.add(agent);
+							agent.setFading(true);
+							fadeOut(agent, 300, e -> {
+								agents.remove(agent);
+								root.getChildren().remove(agent);
+							});
 						}
 					}
-					
-					agents.removeAll(toRemove);
-					root.getChildren().removeAll(toRemove);
 					
 					if(infectious) {
 						System.out.printf("Infected: [%d/%d]     Dead: [%d/%d]     Recovered: [%d/%d]     \r",
@@ -82,10 +84,11 @@ public class Window extends Application {
 					if(infected == 0) {
 						mainTimer.stop();
 					}
-										
+															
 					lastUpdate = now;
 				}				
 			}
+			
 		}; mainTimer.start();		
 		
 		delayTimer = new AnimationTimer() {

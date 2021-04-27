@@ -17,7 +17,6 @@ public class AgentDoctor extends Agent {
 		}				
 		
 		if(!immune && !infected && lastInteraction != bump && Window.infectious) {
-			
 			/* chance of being infected by "Deadly Infected" agent = 20% */
 			if(bump.isDeadlyInfected() && rnd.nextDouble() > 0.8) {
 				setInfected(true);
