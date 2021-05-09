@@ -17,11 +17,17 @@ import static utils.Utils.fadeOut;
 
 public class Window extends Application {
 	
+	public static int YOUNG = 200;
+	public static int ELDERLY = 200;
+	public static int DOCTORS = 25;
+	public static int INFECTED = 20;
+	public static int DELAY = 2;
+	public static double DELTA_SPEED = 1;
+	
 	public static boolean infectious = false;
 	public static Stage window;				// main stage
 	public static final int WIDTH = 1150;	// window width
 	public static final int HEIGHT = 720;	// window height
-	public static int speed = 250;
 	
 	private static int delay = 0;
 	private static int recovered = 0;
@@ -46,8 +52,7 @@ public class Window extends Application {
 			root.setStyle("-fx-background-color: #2F2F2F");
 			root.setPrefSize(WIDTH, HEIGHT);
 			
-		final ArrayList<Agent> agents = Utils.createAgents(200, 200, 30, 2);
-//		final ArrayList<Agent> agents = Utils.createAgents(2, 0, 3, 3);
+		final ArrayList<Agent> agents = Utils.createAgents(YOUNG, ELDERLY, DOCTORS, INFECTED);
 		final int total = agents.size();
 		root.getChildren().addAll(agents);
 			
@@ -96,8 +101,8 @@ public class Window extends Application {
 
 			@Override
 			public void handle(long now) {
-				if(now - lastUpdate >= 1_000_000_000) {
-					if(delay++ > 2) {
+				if(now - lastUpdate >= 1_000_000_000 / DELTA_SPEED) {
+					if(delay++ > DELAY) {
 						infectious = true;
 						Log.success("Virus is now infectious");
 						System.out.println();

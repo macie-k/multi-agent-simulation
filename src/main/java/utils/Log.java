@@ -10,7 +10,7 @@ import com.diogonunes.jcolor.Attribute;
 public class Log {
 		
 	/* color logging if not in IDE */
-	public static boolean IDE = false;
+	public static Boolean IDE = false;
 	private static String SUCCESS = Ansi.colorize(" [OK] ", new AnsiFormat(Attribute.GREEN_TEXT()));
 	private static String ERROR = Ansi.colorize(" [ERROR] ", new AnsiFormat(Attribute.RED_TEXT()));
 	private static String WARNING = Ansi.colorize(" [!] ", new AnsiFormat(Attribute.YELLOW_TEXT()));
@@ -19,16 +19,24 @@ public class Log {
 		System.out.println(getTime() + (IDE ? " [OK] " : SUCCESS) + s);
 	}
 	
-	public static void error(String e, boolean disableCaller) {
-		System.err.println(getTime() + (IDE ? " [ERROR] " : ERROR) + e);
+	public static void success(String s, boolean nocolors) {
+		System.out.println(getTime() + " [OK] " + s);
 	}
 	
 	public static void error(String e) {
 		System.err.println(getTime() + (IDE ? " [ERROR] " : ERROR) + getCallerLog(e));
 	}
 	
+	public static void error(String e, boolean nocolors) {
+		System.err.println(getTime() + " [ERROR] " + getCallerLog(e));
+	}
+	
 	public static void warning(String w) {
 		System.out.println(getTime() + (IDE ? " [!] " : WARNING) + w);
+	}
+	
+	public static void warning(String w, boolean nocolors) {
+		System.out.println(getTime() + " [!] " + w);
 	}
 		
 	/* returns the class and method that threw the error */

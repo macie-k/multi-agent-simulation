@@ -6,6 +6,10 @@ import agents.Agent;
 import agents.AgentDoctor;
 import agents.AgentElderly;
 import agents.AgentYoung;
+import app.Window;
+import argsparser.ArgsParser;
+import argsparser.Argument;
+import argsparser.ArgType;
 import javafx.animation.FadeTransition;
 import javafx.animation.FillTransition;
 import javafx.event.ActionEvent;
@@ -36,20 +40,53 @@ public class Utils {
 		return agents;
 	}
 	
+	
 	/** function to apply CLI arguments */
 	public static void parseArguments(String[] args) {
-		if(args.length > 0) {
-			for(String arg : args) {
-				switch(arg) {
-					case "--nocolors":		// disables logging coloring
-						Log.IDE = true;
-						Log.success("Colored logging is disabled");
-						break;
-				}
-			}
-		}
+		ArgsParser argParser = new ArgsParser();
+		argParser.addArguments(
+			new Argument("--nocolors", "disable colored logging", () -> Log.IDE = true, "Colored logging disabled"),			
+			new Argument("--radius", "-r", "set agents radius", ArgType.INT, () -> {
+				Agent.RADIUS = (int) argParser.getValue("radius");
+				Log.success("Agents' radius set to: " + Agent.RADIUS);
+			}),
+			
+			new Argument("--speed", "-s", "set agents speed", ArgType.INT, () -> {
+				Window.DELTA_SPEED = (int) argParser.getValue("speed");
+				Log.success("Agents' speed set to: " + argParser.getValue("speed"));
+			}),
+			
+			new Argument("--delay", "set agents radius", ArgType.INT, () -> {
+				Window.DELAY = (int) argParser.getValue("delay");
+				Log.success("Agents' radius set to: " + Window.DELAY);
+			}),
+			
+			new Argument("--young", "-y", "set young agents amount", ArgType.INT, () -> {
+				Window.YOUNG = (int) argParser.getValue("young");
+			}),
+			new Argument("--elderly", "-e", "set elderly agents amount", ArgType.INT, () -> {
+				Window.ELDERLY = (int) argParser.getValue("elderly");
+			}),
+			new Argument("--doctors", "-d", "set doctor agents amount", ArgType.INT, () -> {
+				Window.DOCTORS = (int) argParser.getValue("doctors");
+			}),
+			new Argument("--infected", "-i", "set infected agents amount", ArgType.INT, () -> {
+				Window.INFECTED = (int) argParser.getValue("infected");
+			})
+		);
+		
+		argParser.parse(args);
 	}
 	
+	public static boolean isNumber(String val) {
+		try {
+			Double.parseDouble(val);
+			return true;
+		} catch(NumberFormatException e) {
+			return false;
+		}
+	}
+		
 	/* animates color change */
 	public static void fadeColors(Shape shape, int duration, Color from, Color to) {
 		FillTransition ft = new FillTransition(Duration.millis(duration), shape, from, to);
