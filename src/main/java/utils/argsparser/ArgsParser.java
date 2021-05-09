@@ -1,4 +1,4 @@
-package argsparser;
+package utils.argsparser;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -7,9 +7,6 @@ import agents.AgentDoctor;
 import agents.AgentElderly;
 import agents.AgentYoung;
 import app.Window;
-import argsparser.ArgsParser;
-import argsparser.Argument;
-import argsparser.ArgType;
 import javafx.animation.FadeTransition;
 import javafx.animation.FillTransition;
 import javafx.event.ActionEvent;
@@ -18,6 +15,9 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
+import utils.argsparser.ArgType;
+import utils.argsparser.ArgsParser;
+import utils.argsparser.Argument;
 
 public class Utils {
 		

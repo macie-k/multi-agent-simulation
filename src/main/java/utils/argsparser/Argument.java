@@ -1,4 +1,4 @@
-package argsparser;
+package utils.argsparser;
 
 public class Argument {
 	private final ArgAction action;

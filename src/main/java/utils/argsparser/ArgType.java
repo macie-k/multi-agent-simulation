@@ -1,4 +1,4 @@
-package argsparser;
+package utils.argsparser;
 
 public enum ArgType {
 	
