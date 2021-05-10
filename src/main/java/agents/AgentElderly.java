@@ -1,6 +1,7 @@
 package agents;
 
 import app.Window;
+import javafx.scene.layout.Pane;
 
 public class AgentElderly extends Agent {
 
@@ -38,5 +39,12 @@ public class AgentElderly extends Agent {
 	@Override
 	public int getTimeToDie() {
 		return 10;
+	}
+	
+	@Override
+	public void clone(Pane root, int amount) {
+		for(int i=0; i<amount; i++) {
+			root.getChildren().add(new AgentElderly());
+		}
 	}
 }

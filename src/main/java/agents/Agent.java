@@ -6,10 +6,13 @@ import static app.Window.WIDTH;
 import java.util.ArrayList;
 import java.util.Random;
 
+import app.Window;
 import javafx.animation.AnimationTimer;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import utils.OpenSimplexNoise;
+import utils.Utils;
 
 import static utils.Utils.fadeColors;
 import static app.Window.DELTA_SPEED;
@@ -31,6 +34,7 @@ public abstract class Agent extends Circle implements Agentable {
 	private double angle;					// current direction angle
 	private boolean dead = false;			// flag to count dead agents
 	private Color color;
+	private final Color originalColor;
 	private AnimationTimer interactionTimer;
 	private int interactionDelay = 0;
 	private boolean fading = false;			// flag to avoid overlapping fading animations
@@ -39,6 +43,11 @@ public abstract class Agent extends Circle implements Agentable {
 	protected boolean deadlyInfected = false;	// information if agent is deadly infected
 	protected boolean immune = false;			// information if agent is immune
 	protected Agent lastInteraction = null;		// information about last interacted agent // for throttling
+	
+	protected int yCounter = 0;
+	protected int eCounter = 0;
+	protected int dCounter = 0;
+	protected int iCounter = 0;
 		
 	/* timer for changing the agents state to deadly infected after specified time */
 	protected AnimationTimer deadlyInfectedTimer = new AnimationTimer() {
@@ -47,7 +56,7 @@ public abstract class Agent extends Circle implements Agentable {
 		
 		@Override
 		public void handle(long now) {
-			if(now - lastUpdate >= 1_000_000_000 / DELTA_SPEED) {
+			if(Window.infectious && now - lastUpdate >= 1_000_000_000 / DELTA_SPEED) {
 				if(deadlyInfectedSeconds++ > getTimeToDeadlyInfected()) {
 					setDeadlyInfected();
 					deadlyInfectedTimer.stop();
@@ -86,11 +95,14 @@ public abstract class Agent extends Circle implements Agentable {
 		this.osn = new OpenSimplexNoise(ID++);
 		this.angle = rnd.nextInt(360);
 		this.color = color;
+		this.originalColor = color;
 		
+		setOpacity(0);
 		setCenterX(x);
 		setCenterY(y);
 		setRadius(RADIUS);
 		setFill(color);
+		Utils.fadeIn(this, 300, null);
 	}
 	
 	/* method for moving an Agent */
@@ -156,7 +168,9 @@ public abstract class Agent extends Circle implements Agentable {
 	}
 		
 	public abstract void interact(Agent bump);
-		
+	
+	public abstract void clone(Pane root, int amount);
+			
 	/* method for throttling interactions */
 	public void throttleInteraction(Agent bump) {
 		lastInteraction = bump;
@@ -181,10 +195,12 @@ public abstract class Agent extends Circle implements Agentable {
 	public void setInfected(boolean value) {
 		infected = value;
 		if(infected) {
-			fadeColors(this, 2000, color, AgentColor.INFECTED);
+			fadeColors(this, 2000, originalColor, AgentColor.INFECTED);
+			color = AgentColor.INFECTED;
 			deadlyInfectedTimer.start();
 		} else {
-			fadeColors(this, 2000, AgentColor.INFECTED, color);
+			fadeColors(this, 2000, AgentColor.INFECTED, originalColor);
+			color = originalColor;
 		}
 	}
 	
@@ -210,6 +226,10 @@ public abstract class Agent extends Circle implements Agentable {
 		dead = true;
 	}
 	
+	public Color getColor() {
+		return color;
+	}
+	
 	public boolean isInfected() {
 		return infected;
 	}
@@ -233,7 +253,7 @@ public abstract class Agent extends Circle implements Agentable {
 	public double getY() {
 		return getCenterY();
 	}
-	
+		
 	public AnimationTimer getDeadlyInfectedTimer() {
 		return deadlyInfectedTimer;
 	}

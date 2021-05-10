@@ -3,6 +3,7 @@ package agents;
 import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public interface Agentable {
@@ -10,6 +11,7 @@ public interface Agentable {
 	public void detectBump(ArrayList<Agent> agents);
 	public abstract void interact(Agent bump);
 	public void throttleInteraction(Agent bump);
+	public abstract void clone(Pane root, int amount);
 	public abstract void setInfected(boolean value);
 	public void setDeadlyInfected();
 	public void setColor(Color value);

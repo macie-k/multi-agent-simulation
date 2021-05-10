@@ -149,7 +149,7 @@ public class ArgsParser {
 	
 	/* method for adding and checking arguments */
 	public void addArguments(Argument ...args) {	
-		final ArrayList<String> usedNames = new ArrayList<>();		// list for all -n and --names
+		final ArrayList<String> usedNames = new ArrayList<>();		// list for all short and long arguments' names
 		for(Argument a : args) {
 			final String lName = a.getLongName();
 			final String sName = a.getShortName();

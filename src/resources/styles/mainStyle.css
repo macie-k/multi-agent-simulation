@@ -1,0 +1,28 @@
+#panel-bg {
+	-fx-fill: #242424;
+}
+
+#settings-text {
+	-fx-font-family: 'Raleway Light';
+	-fx-font-size: 40;
+	-fx-fill: white;
+}
+
+.agent-value {
+	-fx-faint-focus-color: transparent;
+	-fx-focus-color: transparent;
+	-fx-text-box-border: transparent;
+	-fx-highlight-fill: #363638;
+	-fx-highlight-text-fill: #FFF;
+	-fx-font-family: 'Raleway';
+}
+
+#start-stack {
+	-fx-cursor: hand;
+}
+
+#start-text {
+	-fx-font-family: 'Raleway';
+	-fx-font-size: 15;
+	-fx-fill: white;
+}
