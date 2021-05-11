@@ -58,6 +58,7 @@ public class Utils {
 			panelStack.setTranslateX(WIDTH);
 			panelStack.setTranslateY(0);
 			panelStack.setAlignment(Pos.TOP_LEFT);
+			panelStack.setId("panel-stack");
 			
 		final Rectangle panelBg = new Rectangle(PANEL_WIDTH, HEIGHT);	
 			panelBg.setId("panel-bg");
@@ -101,6 +102,44 @@ public class Utils {
 			iAgent.setTranslateX(agentX);
 		final NewTextField iValue = new NewTextField(AgentColor.INFECTED, Window.INFECTED);	
 			inputs.add(iValue);			
+				
+		panelStack.setOnMousePressed(e -> {
+			settingsText.requestFocus();
+		});
+		
+		final StackPane startStack = new StackPane();
+			startStack.setMaxSize(115, 40);
+			startStack.setTranslateY(-50);
+			panelStack.setAlignment(startStack, Pos.BOTTOM_CENTER);
+			startStack.setId("start-stack");
+			
+		final Color WHITE = Color.web("#FCFCFC");
+		final Color DARK_GREY = Color.web("#515658");
+						
+		final Rectangle startBg = new Rectangle(115, 40, DARK_GREY);
+		final Text startText = new Text("START");
+			startText.setId("start-text");
+			
+		Window.startStack = startStack;
+		Window.panelStack = panelStack;
+			
+		startStack.setOnMouseExited(e -> {
+			fadeColors(startBg, 200, WHITE, DARK_GREY);
+			fadeColors(startText, 200, DARK_GREY, WHITE);
+		});
+		
+		startStack.setOnMouseEntered(e -> {
+			fadeColors(startBg, 200, DARK_GREY, WHITE);
+			fadeColors(startText, 200, WHITE, DARK_GREY);
+		});
+		
+		startStack.setOnMouseClicked(e -> {
+			listAgents(agents);
+			setDisabledPanel(true);
+			
+			Window.infectious = true;
+			Log.success("Virus is now infectious\n");			
+		});
 		
 		incr = 0;
 		for(NewTextField tf : inputs) {
@@ -115,39 +154,17 @@ public class Utils {
 					} else {
 						addAgents(tf.getAgentColor(), diff);
 					}
+					if(tf.getAgentColor() == AgentColor.INFECTED && tf.getNumText() == 0) {
+						startStack.setDisable(true);
+						startStack.setOpacity(0.5);
+					} else {
+						startStack.setDisable(false);
+						startStack.setOpacity(1);
+					}
 				}
 			});
 		}
-		
-		panelStack.setOnMouseClicked(e -> {
-			settingsText.requestFocus();
-		});
-		
-		final StackPane startStack = new StackPane();
-			startStack.setMaxSize(115, 40);
-			startStack.setTranslateY(-50);
-			panelStack.setAlignment(startStack, Pos.BOTTOM_CENTER);
-			startStack.setId("start-stack");
-						
-		final Rectangle startBg = new Rectangle(115, 40, Color.web("#515658"));
-		final Text startText = new Text("START");
-			startText.setId("start-text");
-			
-		startStack.setOnMouseExited(e -> {
-			fadeColors(startBg, 200, Color.WHITE, Color.web("#515658"));
-			fadeColors(startText, 200, Color.BLACK, Color.WHITE);
-		});
-		
-		startStack.setOnMouseEntered(e -> {
-			fadeColors(startBg, 200, Color.web("#515658"), Color.WHITE);
-			fadeColors(startText, 200, Color.WHITE, Color.BLACK);
-		});
-		
-		startStack.setOnMouseClicked(e -> {
-			Window.infectious = true;
-			panelStack.setDisable(true);
-		});
-			
+					
 		startStack.getChildren().addAll(startBg, startText);
 		
 		panelStack.getChildren().addAll(panelBg, settingsText, yAgent, eAgent, dAgent, iAgent, startStack);
@@ -158,6 +175,11 @@ public class Utils {
 		return root;
 	}
 	
+	public static void setDisabledPanel(boolean value) {
+		Window.panelStack.setDisable(value);
+		Window.startStack.setOpacity(value ? 0.5 : 1);
+	}
+	
 	public static void listAgents(ArrayList<Agent> agents) {
 		int y = 0, e = 0, d = 0, i = 0;
 		for(Agent a : agents) {
@@ -166,7 +188,7 @@ public class Utils {
 			if(a instanceof AgentDoctor) d++;
 			if(a.isInfected()) i++;
 		}
-		Log.success("Creating " + y + " young agents");
+		Log.success("Creating " + (y-i) + " young agents");
 		Log.success("Creating " + e + " elderly agents");
 		Log.success("Creating " + d + " doctor agents");
 		Log.success("Creating " + i + " infected agents");
@@ -208,7 +230,7 @@ public class Utils {
 	}
 	
 	
-	/** function to apply CLI arguments */
+	/* function to apply CLI arguments */
 	public static void parseArguments(String[] args) {
 		ArgsParser argParser = new ArgsParser();
 		argParser.addArguments(

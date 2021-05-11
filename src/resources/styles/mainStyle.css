@@ -5,16 +5,17 @@
 #settings-text {
 	-fx-font-family: 'Raleway Light';
 	-fx-font-size: 40;
-	-fx-fill: white;
+	-fx-fill: #FCFCFC;
 }
 
 .agent-value {
 	-fx-faint-focus-color: transparent;
 	-fx-focus-color: transparent;
 	-fx-text-box-border: transparent;
-	-fx-highlight-fill: #363638;
-	-fx-highlight-text-fill: #FFF;
+	-fx-highlight-fill: #242424;
+	-fx-highlight-text-fill: #FCFCFC;
 	-fx-font-family: 'Raleway';
+	-fx-control-inner-background: #FCFCFC;
 }
 
 #start-stack {
@@ -23,6 +24,6 @@
 
 #start-text {
 	-fx-font-family: 'Raleway';
-	-fx-font-size: 15;
-	-fx-fill: white;
+	-fx-font-size: 16;
+	-fx-fill: #FCFCFC;
 }
