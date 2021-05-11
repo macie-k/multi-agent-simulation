@@ -21,7 +21,7 @@ public class Window extends Application {
 	public static int ELDERLY = 100;
 	public static int DOCTORS = 15;
 	public static int INFECTED = 2;
-	public static double DELTA_SPEED = 1;
+	public static int DELTA_SPEED = 1;
 	
 	public static ArrayList<Agent> agentsToAdd = new ArrayList<>();
 	public static boolean infectious = false;
@@ -31,7 +31,6 @@ public class Window extends Application {
 	public static final int PANEL_WIDTH = 300;
 	
 	public static StackPane panelStack = null;
-	public static StackPane startStack = null;
 	
 	private static int recovered = 0;
 	private static int infected = 0;
@@ -98,7 +97,6 @@ public class Window extends Application {
 						agentsToAdd.remove(0);
 						agents.addAll(agentsToAdd);
 						root.getChildren().addAll(agentsToAdd);
-						agentsToAdd.clear();
 					}
 					
 					if(infectious) {
@@ -108,6 +106,7 @@ public class Window extends Application {
 					
 					if(infected == 0 && infectious) {
 						Utils.setDisabledPanel(false);
+						infectious = false;
 					}
 															
 					lastUpdate = now;

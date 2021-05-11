@@ -25,7 +25,6 @@ public abstract class Agent extends Circle implements Agentable {
 	private static final int MARGIN = 10;				// spawning margin
 	protected static final Random rnd = new Random();
 		
-	private final double speed = 300 * DELTA_SPEED;
 	private final OpenSimplexNoise osn;		// noise object
 	private double vx;						// x direction & speed 'vector'
 	private double vy;						// y direction & speed 'vector'
@@ -107,6 +106,7 @@ public abstract class Agent extends Circle implements Agentable {
 	
 	/* method for moving an Agent */
 	public void move() {
+		final int speed = 300 * DELTA_SPEED;
 		final double scale = 0.007;								// smoothen the noise
 		angle = (angle + osn.eval(x*scale, y*scale)) % 360;		// calculate angle based on noise value for current (x, y)
 		

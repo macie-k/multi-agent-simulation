@@ -8,7 +8,8 @@ import javafx.scene.paint.Color;
 
 public class NewTextField extends TextField {
 	
-	private Color agentColor;
+	private final Color agentColor;
+	private final String defaultVal;
 	
 	public NewTextField(Color color, int defaultVal) {
 		this(String.valueOf(defaultVal), color);
@@ -16,17 +17,20 @@ public class NewTextField extends TextField {
 	
 	public NewTextField(String defaultVal, Color agentColor) {
 		super(defaultVal);
-		this.agentColor = agentColor;
+		this.defaultVal = defaultVal;
+		this.agentColor = agentColor;		
 		
 		getStyleClass().add("agent-value");
 		
 		textProperty().addListener((obs, oldVal, newVal) -> {
-			if(newVal.length() == 0)
-				setText(defaultVal);
 			if(newVal.length() > 3)
 				setText(oldVal);
 			return;
 		});
+	}
+	
+	public String getDefaultVal() {
+		return defaultVal;
 	}
 	
 	public int getNumText() {

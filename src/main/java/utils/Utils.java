@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -75,34 +76,60 @@ public class Utils {
 		final int agentRadius = 15;
 		final int agentX = 30;
 		final int inputSpacing = 20;
+		final int textX = agentX + agentRadius*2 + inputSpacing + 50;
 		
 		final ArrayList<NewTextField> inputs = new ArrayList<>();
+		final ArrayList<StackPane> agentStacks = new ArrayList<>();
 		int incr = 1;
 		
+		/* AGENT YOUNG STACK */
+		
 		final Circle yAgent = new Circle(agentRadius, AgentColor.YOUNG);
-			yAgent.setTranslateY(agentY);
 			yAgent.setTranslateX(agentX);
 		final NewTextField yValue = new NewTextField(AgentColor.YOUNG, Window.YOUNG);	
 			inputs.add(yValue);
-		
+		final Text yText = new Text("• YOUNG");
+			yText.setTranslateX(textX);
+			yText.getStyleClass().add("agent-text");
+		final StackPane yStack = new StackPane();
+			yStack.getChildren().addAll(yAgent, yValue, yText);
+			agentStacks.add(yStack);
+			
+		/* AGENT ELDERLY STACK */
+			
 		final Circle eAgent = new Circle(agentRadius, AgentColor.ELDERLY);
-			eAgent.setTranslateY(agentY + (agentSpacing + agentRadius * 2) * incr++);
 			eAgent.setTranslateX(agentX);
 		final NewTextField eValue = new NewTextField(AgentColor.ELDERLY, Window.ELDERLY);	
 			inputs.add(eValue);
+		final Text eText = new Text("• ELDERLY");
+			eText.setTranslateX(textX);
+			eText.getStyleClass().add("agent-text");
+		final StackPane eStack = new StackPane();
+			eStack.getChildren().addAll(eAgent, eValue, eText);
+			agentStacks.add(eStack);
 			
 		final Circle dAgent = new Circle(agentRadius, AgentColor.DOCTOR);
-			dAgent.setTranslateY(agentY + (agentSpacing + agentRadius * 2) * incr++);
 			dAgent.setTranslateX(agentX);
 		final NewTextField dValue = new NewTextField(AgentColor.DOCTOR, Window.DOCTORS);	
 			inputs.add(dValue);
+		final Text dText = new Text("• DOCTOR");
+			dText.setTranslateX(textX);
+			dText.getStyleClass().add("agent-text");
+		final StackPane dStack = new StackPane();
+			dStack.getChildren().addAll(dAgent, dValue, dText);
+			agentStacks.add(dStack);
 			
 		final Circle iAgent = new Circle(agentRadius, AgentColor.INFECTED);
-			iAgent.setTranslateY(agentY + (agentSpacing + agentRadius * 2) * incr++);
 			iAgent.setTranslateX(agentX);
 		final NewTextField iValue = new NewTextField(AgentColor.INFECTED, Window.INFECTED);	
-			inputs.add(iValue);			
-				
+			inputs.add(iValue);		
+		final Text iText = new Text("• INFECTED");
+			iText.setTranslateX(textX);
+			iText.getStyleClass().add("agent-text");
+		final StackPane iStack = new StackPane();
+			iStack.getChildren().addAll(iAgent, iValue, iText);
+			agentStacks.add(iStack);
+						
 		panelStack.setOnMousePressed(e -> {
 			settingsText.requestFocus();
 		});
@@ -120,7 +147,6 @@ public class Utils {
 		final Text startText = new Text("START");
 			startText.setId("start-text");
 			
-		Window.startStack = startStack;
 		Window.panelStack = panelStack;
 			
 		startStack.setOnMouseExited(e -> {
@@ -140,35 +166,57 @@ public class Utils {
 			Window.infectious = true;
 			Log.success("Virus is now infectious\n");			
 		});
-		
+				
 		incr = 0;
+		for(StackPane sp : agentStacks) {
+			sp.setTranslateX(0);
+			sp.setTranslateY(agentY + (agentSpacing + agentRadius * 2) * incr++);
+			sp.setMaxSize(PANEL_WIDTH, agentRadius*2);
+			sp.setAlignment(Pos.CENTER_LEFT);
+		}
+		
 		for(NewTextField tf : inputs) {
 			tf.setMaxSize(40, 25);
 			tf.setTranslateX(agentX + agentRadius*2 + inputSpacing);
-			tf.setTranslateY(agentY + (agentSpacing + agentRadius * 2) * incr++);						
-			tf.focusedProperty().addListener((obs, focusOut, focus) -> {				
-				if(focusOut && tf.getNumText() != tf.getCurrAgentCount(agents)) {
-					final int diff = tf.getNumText() - tf.getCurrAgentCount(agents);
-					if(diff < 0) {
-						removeAgents(agents, tf.getAgentColor(), -diff);
-					} else {
-						addAgents(tf.getAgentColor(), diff);
-					}
-					if(tf.getAgentColor() == AgentColor.INFECTED && tf.getNumText() == 0) {
-						startStack.setDisable(true);
-						startStack.setOpacity(0.5);
-					} else {
-						startStack.setDisable(false);
-						startStack.setOpacity(1);
+			
+			tf.focusedProperty().addListener((obs, focusOut, focus) -> {
+				if(focusOut) {
+					if(tf.getText().length() == 0) tf.setText(tf.getDefaultVal());
+					if(tf.getNumText() != tf.getCurrAgentCount(agents)) {
+						final int diff = tf.getNumText() - tf.getCurrAgentCount(agents);
+						if(diff < 0) {
+							removeAgents(agents, tf.getAgentColor(), -diff);
+						} else {
+							addAgents(tf.getAgentColor(), diff);
+						}
+						if(tf.getAgentColor() == AgentColor.INFECTED) {
+							startStack.setDisable(tf.getNumText() == 0);
+							startStack.setOpacity(tf.getNumText() == 0 ? 0.5 : 1);
+						}
 					}
 				}
 			});
 		}
-					
+		
+		Text speedText = new Text("SPEED");
+			speedText.setTranslateY(360);
+			speedText.setTranslateX(127);
+			speedText.setId("speed-text");
+		
+		Slider speedSlider = new Slider(1, 5, 1);
+			speedSlider.setMaxWidth(PANEL_WIDTH - 100); 
+			speedSlider.setTranslateX(50);
+			speedSlider.setTranslateY(380);
+			speedSlider.setId("speed-slider");
+			
+		speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+			Window.DELTA_SPEED = newVal.intValue();
+		});
+										
 		startStack.getChildren().addAll(startBg, startText);
 		
-		panelStack.getChildren().addAll(panelBg, settingsText, yAgent, eAgent, dAgent, iAgent, startStack);
-		panelStack.getChildren().addAll(inputs);
+		panelStack.getChildren().addAll(panelBg, settingsText, startStack, speedSlider, speedText);
+		panelStack.getChildren().addAll(agentStacks);
 		
 		root.getChildren().add(panelStack);
 		
@@ -177,7 +225,7 @@ public class Utils {
 	
 	public static void setDisabledPanel(boolean value) {
 		Window.panelStack.setDisable(value);
-		Window.startStack.setOpacity(value ? 0.5 : 1);
+		Window.panelStack.setOpacity(value ? 0.5 : 1);
 	}
 	
 	public static void listAgents(ArrayList<Agent> agents) {
