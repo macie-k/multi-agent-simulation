@@ -5,8 +5,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import utils.Scenes;
 import utils.Utils;
 
 import java.util.ArrayList;
@@ -29,9 +29,7 @@ public class Window extends Application {
 	public static final int WIDTH = 1000;	// window width
 	public static final int HEIGHT = 720;	// window height
 	public static final int PANEL_WIDTH = 300;
-	
-	public static StackPane panelStack = null;
-	
+		
 	private static int recovered = 0;
 	private static int infected = 0;
 	private static int dead = 0;
@@ -51,22 +49,9 @@ public class Window extends Application {
 		window.setResizable(false);
 		
 		final ArrayList<Agent> agents = Utils.createAgents(YOUNG, ELDERLY, DOCTORS, INFECTED);
-		final Pane root = Utils.getMainScene(agents);
-		final int total = agents.size();
+		final Pane root = Scenes.getMainScene(agents);
 		root.getChildren().addAll(agents);
-		
-//		idk?
-//		for(Node n : root.getChildren()) {
-//			if(n.getId() != null && n.getId().equals("panel-stack")) {
-//				panelStack = (StackPane) n;
-//				for(Node c : panelStack.getChildren()) {
-//					if(c.getId() != null && c.getId().eqals("start-stack")
-//						startStack = (StackPane) c;
-//						break;
-//				}
-//			}
-//		}
-		
+						
 		mainTimer = new AnimationTimer() {
 			private long lastUpdate = 0;
 
@@ -100,12 +85,17 @@ public class Window extends Application {
 					}
 					
 					if(infectious) {
+						final int total = agents.size();
 						System.out.printf("Infected: [%d/%d]     Dead: [%d/%d]     Recovered: [%d/%d]     \r",
 								infected, total, dead, total, recovered, total);
+						
+						Scenes.iText.setStats(infected);
+						Scenes.dText.setStats(dead);
+						Scenes.rText.setStats(recovered);
 					}
 					
 					if(infected == 0 && infectious) {
-						Utils.setDisabledPanel(false);
+						Scenes.showSettings();
 						infectious = false;
 					}
 															
