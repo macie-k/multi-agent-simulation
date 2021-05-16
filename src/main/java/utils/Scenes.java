@@ -77,7 +77,7 @@ public class Scenes {
 			tf.requestFocus();
 		}
 			
-		settingInputs.get(0).requestFocus();
+		panelStack.requestFocus();
 	}
 		
 	@SuppressWarnings("static-access")

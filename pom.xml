@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>po</groupId>
   <artifactId>Symulacja</artifactId>
-  <version>0.6.0-alpha</version>
+  <version>0.6.2-alpha</version>
   <dependencies>
     <dependency>
       <groupId>org.openjfx</groupId>

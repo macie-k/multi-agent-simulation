@@ -97,7 +97,10 @@ public class Window extends Application {
 					
 					if(infected == 0 && infectious) {
 						Scenes.showSettings();
+						agents.forEach(agent -> agent.setImmune(false));
+						
 						infectious = false;
+						dead = 0;
 					}
 															
 					lastUpdate = now;
