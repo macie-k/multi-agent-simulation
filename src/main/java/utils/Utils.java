@@ -36,7 +36,7 @@ public class Utils {
 		return agents;
 	}
 	
-	public static void listAgents(ArrayList<Agent> agents) {
+	public static void countAgents(ArrayList<Agent> agents) {
 		int y = 0, e = 0, d = 0, i = 0;
 		for(Agent a : agents) {
 			if(a instanceof AgentYoung) y++;
@@ -44,6 +44,12 @@ public class Utils {
 			if(a instanceof AgentDoctor) d++;
 			if(a.isInfected()) i++;
 		}
+		
+		Window.YOUNG = y;
+		Window.ELDERLY = e;
+		Window.DOCTORS = d;
+		Window.INFECTED = (y-i);
+		
 		Log.success("Creating " + (y-i) + " young agents");
 		Log.success("Creating " + e + " elderly agents");
 		Log.success("Creating " + d + " doctor agents");

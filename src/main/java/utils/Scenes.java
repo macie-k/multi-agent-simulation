@@ -13,7 +13,6 @@ import agents.AgentElderly;
 import agents.AgentYoung;
 import app.Window;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -21,38 +20,44 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import utils.obj.NewTextField;
+import utils.obj.StatsText;
 
 public class Scenes {
 	
-	public static StackPane panelStack;
-	public static StackPane settingsStack;
-	public static StackPane statsStack;
+	private static StackPane panelStack;
+	private static StackPane settingsStack;
+	private static StackPane statsStack;
+	private static Slider speedSlider;
+	private static Slider radiusSlider;
+	private static ArrayList<NewTextField> settingInputs;
 	
-	public static NewText iText;
-	public static NewText dText;
-	public static NewText rText;
-	
-	public static ArrayList<NewTextField> settingInputs;
+	public static StatsText iText;
+	public static StatsText dText;
+	public static StatsText rText;
 
-	
+	/* returns Pane containing main elements */
 	public static Pane getMainScene(ArrayList<Agent> agents) {
 		final Pane root = new Pane();
 			root.setStyle("-fx-background-color: #2F2F2F");
 			root.setPrefSize(WIDTH+PANEL_WIDTH, HEIGHT);
 		
+		/* main stackpane */
 		panelStack = new StackPane();
 			panelStack.setPrefSize(PANEL_WIDTH, HEIGHT);
 			panelStack.setTranslateX(WIDTH);
 			panelStack.setTranslateY(0);
 			panelStack.setAlignment(Pos.TOP_LEFT);
 			panelStack.setId("panel-stack");
-						
+				
+		/* main stackpane background */
 		final Rectangle panelBg = new Rectangle(PANEL_WIDTH, HEIGHT);	
 			panelBg.setId("panel-bg");
 			panelBg.setTranslateX(0);
 			panelBg.setTranslateY(0);
 						
-		settingsStack = getSettingsPanel(agents);		
+		/*  set panel to settings view */
+		settingsStack = getSettingsPanel(agents);
 		panelStack.getChildren().addAll(panelBg, settingsStack);
 		
 		root.getChildren().add(panelStack);
@@ -67,23 +72,16 @@ public class Scenes {
 	public static void showSettings() {
 		panelStack.getChildren().remove(statsStack);
 		panelStack.getChildren().add(settingsStack);
-
-		Slider s = null;
-		for(Node n : settingsStack.getChildren()) {
-			if(n.getId() != null && n.getId().equals("speed-slider")) {
-				 s = (Slider) n;
-			}
-		}
 		
 		for(NewTextField tf : settingInputs) {
 			tf.requestFocus();
 		}
-		s.setValue(1);
-		s.requestFocus();
+			
+		settingInputs.get(0).requestFocus();
 	}
-	
+		
 	@SuppressWarnings("static-access")
-	public static StackPane getStatsPanel(ArrayList<Agent> agents) {
+ 	public static StackPane getStatsPanel(ArrayList<Agent> agents) {
 		final StackPane statsStack = new StackPane();
 			statsStack.setPrefSize(PANEL_WIDTH, HEIGHT);
 			statsStack.setAlignment(Pos.TOP_LEFT);
@@ -98,9 +96,9 @@ public class Scenes {
 		final int agentTextSpacing = 30;
 		int incr = 0;
 			
-		iText = new NewText("INFECTED", agentTextX, agentTextY + agentTextSpacing*incr++, agents.size());
-		dText = new NewText("DEAD", agentTextX, agentTextY + agentTextSpacing*incr++, agents.size());
-		rText = new NewText("RECOVERED", agentTextX, agentTextY + agentTextSpacing*incr++, agents.size());
+		iText = new StatsText("INFECTED", agentTextX, agentTextY + agentTextSpacing*incr++, agents.size());
+		dText = new StatsText("DEAD", agentTextX, agentTextY + agentTextSpacing*incr++, agents.size());
+		rText = new StatsText("RECOVERED", agentTextX, agentTextY + agentTextSpacing*incr++, agents.size());
 		
 		int infected = 0;
 		for(Agent a : agents)
@@ -160,6 +158,8 @@ public class Scenes {
 			eStack.getChildren().addAll(eAgent, eValue, eText);
 			agentStacks.add(eStack);
 			
+		/* AGENT DOCTOR STACK */
+			
 		final Circle dAgent = new Circle(agentRadius, AgentColor.DOCTOR);
 			dAgent.setTranslateX(agentX);
 		final NewTextField dValue = new NewTextField(AgentColor.DOCTOR, Window.DOCTORS);	
@@ -170,6 +170,8 @@ public class Scenes {
 		final StackPane dStack = new StackPane();
 			dStack.getChildren().addAll(dAgent, dValue, dText);
 			agentStacks.add(dStack);
+			
+		/* AGENT INFECTED STACK */
 			
 		final Circle iAgent = new Circle(agentRadius, AgentColor.INFECTED);
 			iAgent.setTranslateX(agentX);
@@ -182,10 +184,12 @@ public class Scenes {
 			iStack.getChildren().addAll(iAgent, iValue, iText);
 			agentStacks.add(iStack);
 						
+		/* event for unfocusing TextFields */
 		settingsStack.setOnMousePressed(e -> {
 			settingsText.requestFocus();
 		});
 		
+		/* start button stack & components */
 		final StackPane startStack = new StackPane();
 			startStack.setMaxSize(115, 40);
 			startStack.setTranslateY(-50);
@@ -209,6 +213,7 @@ public class Scenes {
 			Utils.fadeColors(startText, 200, WHITE, DARK_GREY);
 		});
 				
+		/* position and style agent stacks */
 		incr = 0;
 		for(StackPane sp : agentStacks) {
 			sp.setTranslateX(0);
@@ -217,9 +222,12 @@ public class Scenes {
 			sp.setAlignment(Pos.CENTER_LEFT);
 		}
 		
+		/* position and bind event to TextFields */
 		for(NewTextField tf : inputs) {
 			tf.setMaxSize(40, 25);
 			tf.setTranslateX(agentX + agentRadius*2 + inputSpacing);
+			
+			/* on focus loss live change agents count */
 			tf.focusedProperty().addListener((obs, focusOut, focus) -> {
 				if(focusOut) {
 					if(tf.getText().length() == 0) tf.setText(tf.getDefaultVal());
@@ -230,6 +238,7 @@ public class Scenes {
 						} else {
 							addAgents(tf.getAgentColor(), diff);
 						}
+						
 						if(tf.getAgentColor() == AgentColor.INFECTED) {
 							startStack.setDisable(tf.getNumText() == 0);
 							startStack.setOpacity(tf.getNumText() == 0 ? 0.5 : 1);
@@ -244,9 +253,9 @@ public class Scenes {
 			speedText.setTranslateX(127);
 			speedText.setId("speed-text");
 		
-		Slider speedSlider = new Slider(1, 5, 1);
-			speedSlider.setMaxWidth(PANEL_WIDTH - 100); 
-			speedSlider.setTranslateX(50);
+		speedSlider = new Slider(1, 5, 1);
+			speedSlider.setMaxWidth(PANEL_WIDTH - 50); 
+			speedSlider.setTranslateX(25);
 			speedSlider.setTranslateY(380);
 			speedSlider.setId("speed-slider");
 			
@@ -254,8 +263,27 @@ public class Scenes {
 			Window.DELTA_SPEED = newVal.intValue();
 		});
 		
+		Text radiusText = new Text("RADIUS");
+			radiusText.setTranslateY(430);
+			radiusText.setTranslateX(127);
+			radiusText.setId("speed-text");
+		
+		radiusSlider = new Slider(1, 15, 1);
+		radiusSlider.setMaxWidth(PANEL_WIDTH - 50); 
+		radiusSlider.setTranslateX(25);
+		radiusSlider.setTranslateY(450);
+		radiusSlider.setId("radius-slider");
+		radiusSlider.setValue(Agent.RADIUS);
+		
+		radiusSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+			for(Agent a : agents) {
+				Agent.RADIUS = newVal.intValue();
+				a.setRadius(Agent.RADIUS);
+			}
+		});
+		
 		startStack.setOnMouseClicked(e -> {
-			Utils.listAgents(agents);
+			Utils.countAgents(agents);
 			statsStack = getStatsPanel(agents);
 			showStats();
 			
@@ -265,15 +293,14 @@ public class Scenes {
 										
 		startStack.getChildren().addAll(startBg, startText);
 			
-		settingsStack.getChildren().addAll(settingsText, startStack, speedSlider, speedText);
+		settingsStack.getChildren().addAll(settingsText, startStack, speedSlider, speedText, radiusSlider, radiusText);
 		settingsStack.getChildren().addAll(agentStacks);
 		
 		settingInputs = inputs;
 		return settingsStack;
 	}
 	
-	public static void addAgents(Color color, int amount) {
-		Window.agentsToAdd.clear();
+	public static void addAgents(Color color, int amount) {		
 		if(color == AgentColor.YOUNG) {
 			for(int i=0; i<amount; i++)
 				Window.agentsToAdd.add(new AgentYoung());
@@ -295,7 +322,10 @@ public class Scenes {
 				Window.agentsToAdd.add(a);
 			}
 		}
-		Window.agentsToAdd.add(0, null);
+		
+		if(Window.agentsToAdd.get(0) != null) {
+			Window.agentsToAdd.add(0, null);
+		}
 	}
 	
 	public static void removeAgents(ArrayList<Agent> agents, Color color, int amount) {

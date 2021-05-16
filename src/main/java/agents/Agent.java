@@ -19,10 +19,10 @@ import static app.Window.DELTA_SPEED;
 
 public abstract class Agent extends Circle implements Agentable {
 	
-	public static int RADIUS = 4;
+	public static int RADIUS = 4;		// first assign default value, then possibly change with a slider
 	
 	protected static int ID = 0;							// custom noise seed for every agent
-	private static final int MARGIN = 10;				// spawning margin
+	private static final int MARGIN = 10;					// spawning margin
 	protected static final Random rnd = new Random();
 		
 	private final OpenSimplexNoise osn;		// noise object

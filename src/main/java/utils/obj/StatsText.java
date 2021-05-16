@@ -1,18 +1,18 @@
-package utils;
+package utils.obj;
 
 import app.Window;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
-public class NewText extends StackPane {
+public class StatsText extends StackPane {
 	
 	private final int max;
 	
 	private final Text name;
 	private final Text stats;
 	
-	public NewText(String defaultVal, int x, int y, int max) {
+	public StatsText(String defaultVal, int x, int y, int max) {
 		this.name = new Text(defaultVal + ": ");
 		this.stats = new Text();
 		this.max = max;

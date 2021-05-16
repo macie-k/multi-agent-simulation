@@ -43,11 +43,7 @@
 	-fx-control-inner-background: #FCFCFC;
 }
 
-#speed-text {
-	-fx-fill: #FCFCFC;
-	-fx-font-family: 'Raleway';
-	-fx-font-size: 15;
-}
+
 
 #start-stack {
 	-fx-cursor: hand;
@@ -59,6 +55,26 @@
 	-fx-fill: #FCFCFC;
 }
 
+#speed-text {
+	-fx-fill: #FCFCFC;
+	-fx-font-family: 'Raleway';
+	-fx-font-size: 15;
+}
+
+#radius-text {
+	-fx-fill: #FCFCFC;
+	-fx-font-family: 'Raleway';
+	-fx-font-size: 15;
+}
+
+#radius-slider .track {
+	-fx-background-color: #515658;
+}
+
+#radius-slider .thumb {
+	-fx-background-color: #6E7577;
+}
+
 #speed-slider .track {
 	-fx-background-color: #515658;
 }
@@ -68,6 +84,16 @@
 }
 
 #speed-slider {
+	-fx-tick-label-fill: #6E7577;
+	-fx-show-tick-labels: true;
+	-fx-snap-to-ticks: true;
+	-fx-major-tick-unit: 1;
+	-fx-minor-tick-count: 0;
+	-fx-block-increment: 1;
+	-fx-control-inner-background: #515658;
+}
+
+#radius-slider {
 	-fx-tick-label-fill: #6E7577;
 	-fx-show-tick-labels: true;
 	-fx-snap-to-ticks: true;

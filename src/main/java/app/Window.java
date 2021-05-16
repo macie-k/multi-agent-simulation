@@ -82,6 +82,7 @@ public class Window extends Application {
 						agentsToAdd.remove(0);
 						agents.addAll(agentsToAdd);
 						root.getChildren().addAll(agentsToAdd);
+						agentsToAdd.clear();
 					}
 					
 					if(infectious) {

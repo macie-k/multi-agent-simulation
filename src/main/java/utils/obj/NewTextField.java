@@ -1,4 +1,4 @@
-package utils;
+package utils.obj;
 
 import java.util.ArrayList;
 
@@ -23,8 +23,13 @@ public class NewTextField extends TextField {
 		getStyleClass().add("agent-value");
 		
 		textProperty().addListener((obs, oldVal, newVal) -> {
-			if(newVal.length() > 3)
+			try {
+				if(newVal.length() > 3)
+					setText(oldVal);
+				Integer.parseInt(newVal);
+			} catch (Exception e) {
 				setText(oldVal);
+			}
 			return;
 		});
 	}
