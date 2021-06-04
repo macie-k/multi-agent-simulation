@@ -30,9 +30,9 @@ public class Window extends Application {
 	public static final int HEIGHT = 720;	// window height
 	public static final int PANEL_WIDTH = 300;
 		
-	private static int recovered = 0;
+	public static int recovered = 0;
 	private static int infected = 0;
-	private static int dead = 0;
+	public static int dead = 0;
 	public static AnimationTimer mainTimer;
 	
 	public static void launcher(String[] args) {
@@ -96,6 +96,7 @@ public class Window extends Application {
 					}
 					
 					if(infected == 0 && infectious) {
+						Utils.saveOutput();
 						Scenes.showSettings();
 						agents.forEach(agent -> agent.setImmune(false));
 						

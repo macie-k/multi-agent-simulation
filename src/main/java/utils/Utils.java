@@ -1,5 +1,10 @@
 package utils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import agents.Agent;
@@ -45,10 +50,10 @@ public class Utils {
 			if(a.isInfected()) i++;
 		}
 		
-		Window.YOUNG = y;
+		Window.YOUNG = (y-i);
 		Window.ELDERLY = e;
 		Window.DOCTORS = d;
-		Window.INFECTED = (y-i);
+		Window.INFECTED = i;
 		
 		Log.success("Creating " + (y-i) + " young agents");
 		Log.success("Creating " + e + " elderly agents");
@@ -142,5 +147,20 @@ public class Utils {
 		    if(callback != null) {
 		    	ft.setOnFinished(callback);
 		    }
+	}
+	public static void saveOutput() {
+		File file = new File("data.csv");
+		int total =  Window.YOUNG+Window.ELDERLY+Window.DOCTORS;
+		StringBuilder builder = new StringBuilder();
+		if(!file.exists()) {
+			builder.append("young,elderly,doctors,infected,total,recovered,dead,speed\n");
+		}
+		try(PrintWriter writer = new PrintWriter(new FileWriter(file, true))){
+			String s = String.format("%d,%d,%d,%d,%d,%d,%d,%d\n", Window.YOUNG,Window.ELDERLY, Window.DOCTORS, Window.INFECTED, total, Window.recovered, Window.dead, Window.DELTA_SPEED);
+			builder.append(s);
+			writer.print(builder.toString());
+		} catch(IOException e) {
+			Log.error(e.getMessage());
+		}
 	}
 }
