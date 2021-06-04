@@ -150,13 +150,27 @@ public class Utils {
 	}
 	public static void saveOutput() {
 		File file = new File("data.csv");
+		StringBuilder builder = new StringBuilder();
+		if(!file.exists()) {
+			builder.append("age,infected,dead,recovered\n");
+		}
+		try(PrintWriter writer = new PrintWriter(new FileWriter(file, true))){
+			String s = String.format("%d,%d,%d,%d\n", Window.age, Window.infected, Window.dead, Window.recovered);
+			builder.append(s);
+			writer.print(builder.toString());
+		} catch(IOException e) {
+			Log.error(e.getMessage());
+		}
+	}
+	public static void saveOutputFinal() {
+		File file = new File("result.csv");
 		int total =  Window.YOUNG+Window.ELDERLY+Window.DOCTORS;
 		StringBuilder builder = new StringBuilder();
 		if(!file.exists()) {
-			builder.append("young,elderly,doctors,infected,total,recovered,dead,speed\n");
+			builder.append("young,elderly,doctors,infected,total,recovered,dead,speed,max age\n");
 		}
 		try(PrintWriter writer = new PrintWriter(new FileWriter(file, true))){
-			String s = String.format("%d,%d,%d,%d,%d,%d,%d,%d\n", Window.YOUNG,Window.ELDERLY, Window.DOCTORS, Window.INFECTED, total, Window.recovered, Window.dead, Window.DELTA_SPEED);
+			String s = String.format("%d,%d,%d,%d,%d,%d,%d,%d,%d\n", Window.YOUNG,Window.ELDERLY, Window.DOCTORS, Window.INFECTED, total, Window.recovered, Window.dead, Window.DELTA_SPEED, Window.age);
 			builder.append(s);
 			writer.print(builder.toString());
 		} catch(IOException e) {

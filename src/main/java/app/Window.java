@@ -31,9 +31,11 @@ public class Window extends Application {
 	public static final int PANEL_WIDTH = 300;
 		
 	public static int recovered = 0;
-	private static int infected = 0;
+	public static int infected = 0;
 	public static int dead = 0;
 	public static AnimationTimer mainTimer;
+	
+	public static int age = 1;
 	
 	public static void launcher(String[] args) {
 		Utils.parseArguments(args);
@@ -89,19 +91,21 @@ public class Window extends Application {
 						final int total = agents.size();
 						System.out.printf("Infected: [%d/%d]     Dead: [%d/%d]     Recovered: [%d/%d]     \r",
 								infected, total, dead, total, recovered, total);
-						
+						Utils.saveOutput();
 						Scenes.iText.setStats(infected);
 						Scenes.dText.setStats(dead);
 						Scenes.rText.setStats(recovered);
+						age++;
 					}
 					
 					if(infected == 0 && infectious) {
-						Utils.saveOutput();
+						Utils.saveOutputFinal();
 						Scenes.showSettings();
 						agents.forEach(agent -> agent.setImmune(false));
 						
 						infectious = false;
 						dead = 0;
+						age=1;
 					}
 															
 					lastUpdate = now;
