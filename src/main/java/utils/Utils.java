@@ -1,7 +1,6 @@
 package utils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -148,8 +147,9 @@ public class Utils {
 		    	ft.setOnFinished(callback);
 		    }
 	}
+	
 	public static void saveOutput() {
-		File file = new File("data.csv");
+		File file = new File("full-data.csv");
 		StringBuilder builder = new StringBuilder();
 		if(!file.exists()) {
 			builder.append("age,infected,dead,recovered\n");
@@ -162,6 +162,7 @@ public class Utils {
 			Log.error(e.getMessage());
 		}
 	}
+	
 	public static void saveOutputFinal() {
 		File file = new File("result.csv");
 		int total =  Window.YOUNG+Window.ELDERLY+Window.DOCTORS;
