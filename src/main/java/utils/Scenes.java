@@ -25,7 +25,7 @@ import utils.obj.StatsText;
 /**
  * Class responsible for building scenes and components.
  * 
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

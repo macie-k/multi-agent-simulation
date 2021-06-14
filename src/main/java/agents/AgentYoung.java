@@ -3,7 +3,7 @@ package agents;
 import app.Window;
 /**
  * Class responsible for creating young agent.
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

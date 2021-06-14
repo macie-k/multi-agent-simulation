@@ -17,7 +17,7 @@ import static utils.Utils.fadeOut;
 /**
  * Class containing simulation's logic.
  * 
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

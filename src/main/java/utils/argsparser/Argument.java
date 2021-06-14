@@ -2,7 +2,7 @@ package utils.argsparser;
 /**
  * 
  * Class responsible for creating argument.
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

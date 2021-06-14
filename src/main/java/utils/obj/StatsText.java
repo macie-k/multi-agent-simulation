@@ -7,7 +7,7 @@ import javafx.scene.text.Text;
 /**
  * Class responsible for creating new statistics field.
  * 
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

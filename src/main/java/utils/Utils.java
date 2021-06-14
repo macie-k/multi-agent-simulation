@@ -26,7 +26,7 @@ import utils.argsparser.Argument;
 /**
  * Class containing utility methods.
  * 
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

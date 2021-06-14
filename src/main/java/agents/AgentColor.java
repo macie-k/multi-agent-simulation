@@ -3,7 +3,7 @@ package agents;
 import javafx.scene.paint.Color;
 /**
  * 
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

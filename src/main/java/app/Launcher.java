@@ -2,7 +2,7 @@ package app;
 /**
  * Class responsible for launching simulation.
  * 
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

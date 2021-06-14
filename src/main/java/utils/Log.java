@@ -9,7 +9,7 @@ import com.diogonunes.jcolor.Attribute;
 /**
  * Class containing logs logic.
  * 
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

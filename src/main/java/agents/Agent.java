@@ -18,7 +18,7 @@ import static app.Window.DELTA_SPEED;
 /**
  * Class responsible for creating agent.
  * 
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

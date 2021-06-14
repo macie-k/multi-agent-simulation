@@ -2,7 +2,7 @@ package utils.argsparser;
 /**
  * 
  * Enum representing possible argument types.
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

@@ -1,7 +1,7 @@
 package utils.argsparser;
 /**
  * 
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

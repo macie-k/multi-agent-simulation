@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 /**
  * Class responsible for creating new text field.
  * 
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

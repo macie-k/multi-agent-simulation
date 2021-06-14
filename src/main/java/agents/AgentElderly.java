@@ -3,7 +3,7 @@ package agents;
 import app.Window;
 /**
  * Class responsible for creating elderly agent.
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */

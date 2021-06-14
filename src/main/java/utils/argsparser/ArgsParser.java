@@ -10,7 +10,7 @@ import static utils.Utils.isNumber;
 /**
  * Class responsible for parsing arguments.
  * 
- * @author MACIEJ KAèMIERCZYK
+ * @author MACIEJ KAZMIERCZYK
  * @author JANUSZ IGNASZAK
  *
  */
