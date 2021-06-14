@@ -22,7 +22,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import utils.obj.NewTextField;
 import utils.obj.StatsText;
-
+/**
+ * Class responsible for building scenes and components.
+ * 
+ * @author MACIEJ KAèMIERCZYK
+ * @author JANUSZ IGNASZAK
+ *
+ */
 public class Scenes {
 	
 	private static StackPane panelStack;
@@ -36,7 +42,11 @@ public class Scenes {
 	public static StatsText dText;
 	public static StatsText rText;
 
-	/* returns Pane containing main elements */
+	/**
+	 * Returns Pane containing main elements
+	 * @param agents
+	 * @return
+	 */
 	public static Pane getMainScene(ArrayList<Agent> agents) {
 		final Pane root = new Pane();
 			root.setStyle("-fx-background-color: #2F2F2F");

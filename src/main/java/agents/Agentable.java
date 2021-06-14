@@ -4,7 +4,12 @@ import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
-
+/**
+ * 
+ * @author MACIEJ KAèMIERCZYK
+ * @author JANUSZ IGNASZAK
+ *
+ */
 public interface Agentable {
 	public void move();
 	public void detectBump(ArrayList<Agent> agents);

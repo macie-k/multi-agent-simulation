@@ -1,7 +1,12 @@
 package agents;
 
 import app.Window;
-
+/**
+ * Class responsible for creating young agent.
+ * @author MACIEJ KAèMIERCZYK
+ * @author JANUSZ IGNASZAK
+ *
+ */
 public class AgentYoung extends Agent {
 			
 	public AgentYoung() {

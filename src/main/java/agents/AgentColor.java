@@ -1,7 +1,12 @@
 package agents;
 
 import javafx.scene.paint.Color;
-
+/**
+ * 
+ * @author MACIEJ KAèMIERCZYK
+ * @author JANUSZ IGNASZAK
+ *
+ */
 public interface AgentColor {	
 	public static final Color ELDERLY = Color.web("#7D7D7D");
 	public static final Color YOUNG = Color.web("#B8B8B8");

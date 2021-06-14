@@ -7,7 +7,13 @@ import java.util.HashMap;
 import utils.Log;
 
 import static utils.Utils.isNumber;
-
+/**
+ * Class responsible for parsing arguments.
+ * 
+ * @author MACIEJ KAèMIERCZYK
+ * @author JANUSZ IGNASZAK
+ *
+ */
 public class ArgsParser {
 	private static ArrayList<Argument> arguments = new ArrayList<>();
 	private static HashMap<String, Object> values = new HashMap<>();
@@ -19,7 +25,10 @@ public class ArgsParser {
 		}));
 	}
 	
-	/* parse arguments */
+	/**
+	 * Parse arguments
+	 * @param args
+	 */
 	public void parse(String[] args) {		
 		if(args.length == 0) return;
 		
@@ -88,7 +97,9 @@ public class ArgsParser {
 		System.out.println();
 	}
 		
-	/* display help if -h or --help is present */
+	/**
+	 * Display help if -h or --help is present
+	 */
 	private void showHelp() {
 		arguments.sort(new nameSorter());	// sort arguments
 		System.out.println("available arguments: ");
@@ -125,15 +136,18 @@ public class ArgsParser {
 		}
 	}
 	
-	/* method for sorting arguments by longName field */
+	/**
+	 * Class for sorting arguments by longName field 
+	 */
 	private class nameSorter implements Comparator<Argument> {
 		@Override
 		public int compare(Argument arg0, Argument arg1) {
 			return arg0.getLongName().compareToIgnoreCase(arg1.getLongName());
 		}
 	}
-	
-	/* print messages only for used arguments */
+	/**
+	 * Print messages only for used arguments
+	 */
 	private void showMessages() {
 		for(Argument a : arguments) {
 			if(values.containsKey(a.getLongName())) {
@@ -147,7 +161,10 @@ public class ArgsParser {
 		return values.get(name);
 	}
 	
-	/* method for adding and checking arguments */
+	/**
+	 * Method for adding and checking arguments
+	 * @param args
+	 */
 	public void addArguments(Argument ...args) {	
 		final ArrayList<String> usedNames = new ArrayList<>();		// list for all short and long arguments' names
 		for(Argument a : args) {

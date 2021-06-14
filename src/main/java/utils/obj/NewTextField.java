@@ -5,7 +5,13 @@ import java.util.ArrayList;
 import agents.Agent;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-
+/**
+ * Class responsible for creating new text field.
+ * 
+ * @author MACIEJ KAèMIERCZYK
+ * @author JANUSZ IGNASZAK
+ *
+ */
 public class NewTextField extends TextField {
 	
 	private final Color agentColor;

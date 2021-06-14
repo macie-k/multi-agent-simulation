@@ -4,7 +4,13 @@ import app.Window;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-
+/**
+ * Class responsible for creating new statistics field.
+ * 
+ * @author MACIEJ KAèMIERCZYK
+ * @author JANUSZ IGNASZAK
+ *
+ */
 public class StatsText extends StackPane {
 	
 	private final int max;

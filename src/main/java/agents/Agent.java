@@ -15,7 +15,13 @@ import utils.Utils;
 
 import static utils.Utils.fadeColors;
 import static app.Window.DELTA_SPEED;
-
+/**
+ * Class responsible for creating agent.
+ * 
+ * @author MACIEJ KAèMIERCZYK
+ * @author JANUSZ IGNASZAK
+ *
+ */
 public abstract class Agent extends Circle implements Agentable {
 	
 	public static int RADIUS = 4;		// first assign default value, then possibly change with a slider
@@ -81,12 +87,20 @@ public abstract class Agent extends Circle implements Agentable {
 		}
 	};
 	
-	/* constructor for randomly placing an Agent withing the specified margin */
+	/**
+	 * Constructor for randomly placing an Agent within the specified margin
+	 * @param color
+	 */
 	public Agent(Color color) {
 		this(rnd.nextInt(WIDTH-2*MARGIN) + MARGIN, rnd.nextInt(HEIGHT-2*MARGIN) + MARGIN, color);
 	}
 	
-	/* main constructor */
+	/**
+	 * Main constructor
+	 * @param x
+	 * @param y
+	 * @param color
+	 */
 	public Agent(double x, double y, Color color) {
 		this.x = x;
 		this.y = y;
@@ -103,7 +117,9 @@ public abstract class Agent extends Circle implements Agentable {
 		Utils.fadeIn(this, 300, null);
 	}
 	
-	/* method for moving an Agent */
+	/**
+	 * Method for moving an Agent
+	 */
 	public void move() {
 		final int speed = 300 * DELTA_SPEED;
 		final double scale = 0.007;								// smoothen the noise
@@ -152,7 +168,9 @@ public abstract class Agent extends Circle implements Agentable {
 		}
 	}
 
-	/* method for detecting if the agent collided with anyone during the current frame */
+	/**
+	 * Method for detecting if the agent collided with anyone during the current frame
+	 */
 	public void detectBump(ArrayList<Agent> agents) {
 		if(isDeadlyInfected() || isDead()) return;
 		
@@ -168,7 +186,9 @@ public abstract class Agent extends Circle implements Agentable {
 		
 	public abstract void interact(Agent bump);
 				
-	/* method for throttling interactions */
+	/**
+	 * Method for throttling interactions
+	 */
 	public void throttleInteraction(Agent bump) {
 		lastInteraction = bump;
 		

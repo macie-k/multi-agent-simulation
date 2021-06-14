@@ -14,7 +14,13 @@ import java.util.ArrayList;
 import agents.Agent;
 
 import static utils.Utils.fadeOut;
-
+/**
+ * Class containing simulation's logic.
+ * 
+ * @author MACIEJ KAèMIERCZYK
+ * @author JANUSZ IGNASZAK
+ *
+ */
 public class Window extends Application {
 	
 	public static int YOUNG = 100;
@@ -36,13 +42,18 @@ public class Window extends Application {
 	public static AnimationTimer mainTimer;
 	
 	public static int age = 1;
-	
+	/**
+	 * Method responsible for launching simulation logic.
+	 * @param args Receives arguments.
+	 */
 	public static void launcher(String[] args) {
 		Utils.parseArguments(args);
 		Utils.loadFonts();
 		launch(args);
 	}
-
+	/**
+	 * Method responsible for simulation logic.
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;

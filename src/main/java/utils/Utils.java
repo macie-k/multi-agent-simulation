@@ -23,10 +23,23 @@ import javafx.util.Duration;
 import utils.argsparser.ArgType;
 import utils.argsparser.ArgsParser;
 import utils.argsparser.Argument;
-
+/**
+ * Class containing utility methods.
+ * 
+ * @author MACIEJ KAèMIERCZYK
+ * @author JANUSZ IGNASZAK
+ *
+ */
 public class Utils {
 			
-	/** function for creating agents */
+	/**
+	 * Method for creating agents
+	 * @param y number of young agents
+	 * @param e number of elderly agents
+	 * @param d number of dead agents
+	 * @param i number of infected agents
+	 * @return
+	 */
 	public static ArrayList<Agent> createAgents(int y, int e, int d, int i) {
 		ArrayList<Agent> agents = new ArrayList<>();		
 		for(int j=0; j<y; j++) agents.add(new AgentYoung());
@@ -60,8 +73,10 @@ public class Utils {
 		Log.success("Creating " + i + " infected agents");
 	}
 	
-	
-	/* function to apply CLI arguments */
+	/**
+	 * Method to apply CLI arguments 
+	 * @param args arguments to parse
+	 */
 	public static void parseArguments(String[] args) {
 		ArgsParser argParser = new ArgsParser();
 		argParser.addArguments(
@@ -123,7 +138,13 @@ public class Utils {
 		}
 	}
 		
-	/* animates color change */
+	/**
+	 * Animates color change 
+	 * @param shape
+	 * @param duration
+	 * @param from
+	 * @param to
+	 */
 	public static void fadeColors(Shape shape, int duration, Color from, Color to) {
 		try {
 			FillTransition ft = new FillTransition(Duration.millis(duration), shape, from, to);
@@ -140,7 +161,15 @@ public class Utils {
 		fade(node, duration, node.getOpacity(), 0, callback);
 	}
 	
-	/* fades given node */
+	/* */
+	/**
+	 * Fades given node 
+	 * @param node
+	 * @param duration
+	 * @param from
+	 * @param to
+	 * @param callback
+	 */
 	public static void fade(Node node, int duration, double from, double to, EventHandler<ActionEvent> callback) {
 		try {
 		FadeTransition ft = new FadeTransition(Duration.millis(duration), node);

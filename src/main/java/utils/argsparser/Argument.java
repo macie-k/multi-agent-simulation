@@ -1,5 +1,11 @@
 package utils.argsparser;
-
+/**
+ * 
+ * Class responsible for creating argument.
+ * @author MACIEJ KAèMIERCZYK
+ * @author JANUSZ IGNASZAK
+ *
+ */
 public class Argument {
 	private final ArgAction action;
 	private final String longName;
