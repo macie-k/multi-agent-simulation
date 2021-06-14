@@ -8,7 +8,6 @@ import java.util.Random;
 
 import app.Window;
 import javafx.animation.AnimationTimer;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import utils.OpenSimplexNoise;
@@ -168,9 +167,7 @@ public abstract class Agent extends Circle implements Agentable {
 	}
 		
 	public abstract void interact(Agent bump);
-	
-	public abstract void clone(Pane root, int amount);
-			
+				
 	/* method for throttling interactions */
 	public void throttleInteraction(Agent bump) {
 		lastInteraction = bump;

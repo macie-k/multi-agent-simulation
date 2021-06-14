@@ -111,7 +111,6 @@ public class Window extends Application {
 					lastUpdate = now;
 				}				
 			}
-			
 		}; mainTimer.start();		
 				
 		Scene scene = new Scene(root);

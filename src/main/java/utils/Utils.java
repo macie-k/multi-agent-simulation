@@ -25,7 +25,7 @@ import utils.argsparser.ArgsParser;
 import utils.argsparser.Argument;
 
 public class Utils {
-		
+			
 	/** function for creating agents */
 	public static ArrayList<Agent> createAgents(int y, int e, int d, int i) {
 		ArrayList<Agent> agents = new ArrayList<>();		
@@ -125,8 +125,11 @@ public class Utils {
 		
 	/* animates color change */
 	public static void fadeColors(Shape shape, int duration, Color from, Color to) {
-		FillTransition ft = new FillTransition(Duration.millis(duration), shape, from, to);
+		try {
+			FillTransition ft = new FillTransition(Duration.millis(duration), shape, from, to);
 			ft.play();
+		} catch (Exception e) {}
+		
 	}
 	
 	public static void fadeIn(Node node, int duration, EventHandler<ActionEvent> callback) {
@@ -139,6 +142,7 @@ public class Utils {
 	
 	/* fades given node */
 	public static void fade(Node node, int duration, double from, double to, EventHandler<ActionEvent> callback) {
+		try {
 		FadeTransition ft = new FadeTransition(Duration.millis(duration), node);
 			ft.setFromValue(from);
 		    ft.setToValue(to);
@@ -146,6 +150,7 @@ public class Utils {
 		    if(callback != null) {
 		    	ft.setOnFinished(callback);
 		    }
+		} catch (Exception e) {}
 	}
 	
 	public static void saveOutput() {

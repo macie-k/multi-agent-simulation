@@ -1,7 +1,6 @@
 package agents;
 
 import app.Window;
-import javafx.scene.layout.Pane;
 
 public class AgentDoctor extends Agent {
 		
@@ -27,7 +26,6 @@ public class AgentDoctor extends Agent {
 			}
 		}
 		
-		
 		throttleInteraction(bump);
 	}
 		
@@ -39,12 +37,5 @@ public class AgentDoctor extends Agent {
 	@Override
 	public int getTimeToDie() {
 		return 15;
-	}
-
-	@Override
-	public void clone(Pane root, int amount) {
-		for(int i=0; i<amount; i++) {
-			root.getChildren().add(new AgentDoctor());
-		}
 	}
 }
