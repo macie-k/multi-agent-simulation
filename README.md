@@ -42,6 +42,6 @@ Configurable multi-agent-based simulation made in Java (FX)
 ## Logging
 
 The program has three types of logging:
-- Saving individual simulation cycle frame by frame to the `csv` file
-- Appending each final result to separate `csv` file
+- Saving individual simulation states frame by frame to the `csv` file
+- Appending each final result to the separate `csv` file
 - Live count in console (and GUI panel)
